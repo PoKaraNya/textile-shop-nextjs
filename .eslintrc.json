@@ -30,6 +30,9 @@
     "jsx-a11y/no-noninteractive-element-interactions": "off",
     "consistent-return": "off",
     "jsx-a11y/heading-has-content": "off",
-    "no-param-reassign": "off"
+    "no-param-reassign": "off",
+    "no-plusplus": "off",
+    "import/no-extraneous-dependencies": "off",
+    "no-await-in-loop": "off"
   }
 }
