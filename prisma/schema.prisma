@@ -66,3 +66,29 @@ model VerificationToken {
 
   @@unique([identifier, token])
 }
+
+model Product {
+  id          String            @id @default(cuid())
+  title       String            @unique
+  description String?
+  photo       String?
+  price       Int?
+  categories  ProductCategory[]
+}
+
+model Category {
+  id          String            @id @default(cuid())
+  title       String            @unique
+  description String?
+  photo       String?
+  products    ProductCategory[]
+}
+
+model ProductCategory {
+  product    Product  @relation(fields: [productId], references: [id])
+  productId  String
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId String
+
+  @@id([productId, categoryId])
+}
