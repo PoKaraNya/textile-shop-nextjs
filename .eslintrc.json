@@ -33,6 +33,10 @@
     "no-param-reassign": "off",
     "no-plusplus": "off",
     "import/no-extraneous-dependencies": "off",
-    "no-await-in-loop": "off"
+    "no-await-in-loop": "off",
+    "eslint-disable-next-line no-var": "off",
+    "vars-on-top": "off",
+    "no-var": "off",
+    "no-restricted-syntax": "off"
   }
 }

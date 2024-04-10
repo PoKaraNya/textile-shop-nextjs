@@ -5,10 +5,7 @@ services:
     image: postgres:latest
     container_name: my_postgres
     restart: always
-    environment:
-      POSTGRES_USER: my_user
-      POSTGRES_PASSWORD: my_password
-      POSTGRES_DB: my_database
+    env_file: '.env.dev'
     ports:
       - "5432:5432"
     volumes:
