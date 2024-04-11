@@ -3,17 +3,18 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
-import { useTransition } from 'react';
+import { SyntheticEvent, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
-import { AccountCard, AccountCardFooter, AccountCardBody } from './AccountCard';
+import { AccountCard, AccountCardBody, AccountCardFooter } from './AccountCard';
 
 export default function UpdateNameCard({ name }: { name: string }) {
-  const [isPending, startTransition] = useTransition();
+  const [, startTransition] = useTransition();
   const router = useRouter();
-  const handleSubmit = async (event: React.SyntheticEvent) => {
+  const handleSubmit = async (event: SyntheticEvent) => {
     event.preventDefault();
     const target = event.target as HTMLFormElement;
     const form = new FormData(target);
+    // eslint-disable-next-line @typescript-eslint/no-shadow
     const { name } = Object.fromEntries(form.entries()) as { name: string };
     if (name.length < 3) {
       toast.error('Name must be longer than 3 characters.');

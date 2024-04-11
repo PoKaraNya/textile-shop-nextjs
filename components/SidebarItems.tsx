@@ -6,7 +6,8 @@ import { usePathname } from 'next/navigation';
 import { LucideIcon } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
-import { defaultLinks, additionalLinks } from '@/config/nav';
+// eslint-disable-next-line import/no-cycle
+import { additionalLinks, defaultLinks } from '@/config/nav';
 
 export interface SidebarLinkType {
   title: string;

@@ -3,6 +3,7 @@ import {
 } from '@/lib/api/products';
 import { NextRequest } from 'next/server';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export async function GET(request: Request) {
   const products = await getAllProducts();
   return Response.json(products);

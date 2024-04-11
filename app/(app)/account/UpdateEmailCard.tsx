@@ -3,16 +3,17 @@ import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
 import { SyntheticEvent, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
-import { AccountCard, AccountCardFooter, AccountCardBody } from './AccountCard';
+import { AccountCard, AccountCardBody, AccountCardFooter } from './AccountCard';
 
 export default function UpdateEmailCard({ email }: { email: string }) {
-  const [isPending, startTransition] = useTransition();
+  const [, startTransition] = useTransition();
   const router = useRouter();
 
   const handleSubmit = async (event: SyntheticEvent) => {
     event.preventDefault();
     const target = event.target as HTMLFormElement;
     const form = new FormData(target);
+    // eslint-disable-next-line @typescript-eslint/no-shadow
     const { email } = Object.fromEntries(form.entries()) as { email: string };
     if (email.length < 3) {
       toast.error('Email must be longer than 3 characters.');
