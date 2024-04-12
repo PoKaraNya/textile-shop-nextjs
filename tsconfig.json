@@ -22,9 +22,13 @@
       }
     ],
     "paths": {
-      "@/*": [
-        "./*"
-      ],
+      "@/*": ["./*"],
+      "@/app/*": ["app/*"],
+      "@/components/*": ["components/*"],
+      "@/config/*": ["config/*"],
+      "@/lib/*": ["lib/*"],
+      "@/prisma/*": ["prisma/*"],
+      "@/public/*": ["public/*"],
       "@/zodAutoGenSchemas": [
         "./prisma/zod/index"
       ]

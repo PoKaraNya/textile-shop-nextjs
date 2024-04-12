@@ -1,5 +1,5 @@
-import * as z from 'zod';
-import { CompleteProductCategory, relatedProductCategorySchema } from './index';
+import * as z from "zod"
+import { CompleteProductCategory, relatedProductCategorySchema } from "./index"
 
 export const productSchema = z.object({
   id: z.string(),
@@ -7,7 +7,7 @@ export const productSchema = z.object({
   description: z.string().nullish(),
   photo: z.string().nullish(),
   price: z.number().int().nullish(),
-});
+})
 
 export interface CompleteProduct extends z.infer<typeof productSchema> {
   categories: CompleteProductCategory[]
@@ -20,4 +20,4 @@ export interface CompleteProduct extends z.infer<typeof productSchema> {
  */
 export const relatedProductSchema: z.ZodSchema<CompleteProduct> = z.lazy(() => productSchema.extend({
   categories: relatedProductCategorySchema.array(),
-}));
+}))

@@ -19,7 +19,10 @@
     "db:reset:prod": "env-cmd -f .env.prod ts-node prisma/db-reset.ts",
     "db:push:dev": "env-cmd -f .env.dev prisma db push",
     "db:push:prod": "env-cmd -f .env.prod prisma db push",
-    "prepare": "husky && husky install"
+    "prepare": "husky && husky install",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "coverage": "jest --coverage --silent"
   },
   "dependencies": {
     "@auth/core": "^0.28.2",
@@ -50,6 +53,9 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^8.4.1",
+    "@testing-library/jest-dom": "6.1.5",
+    "@testing-library/react": "14.1.2",
+    "@types/jest": "29.5.11",
     "@types/node": "^20.12.4",
     "@types/react": "^18",
     "@types/react-dom": "^18",
@@ -60,6 +66,8 @@
     "eslint-config-airbnb-typescript": "^18.0.0",
     "eslint-config-next": "14.1.4",
     "husky": "^8.0.0",
+    "jest": "29.7.0",
+    "jest-environment-jsdom": "29.7.0",
     "postcss": "^8",
     "prisma": "^5.12.1",
     "tailwindcss": "^3.3.0",
