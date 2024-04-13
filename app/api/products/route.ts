@@ -1,27 +1,70 @@
+import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
+import { z } from "zod";
+
 import {
-  createProduct, deleteProduct, getAllProducts, updateProduct,
-} from '@/lib/api/products';
-import { NextRequest } from 'next/server';
+  createProduct,
+  deleteProduct,
+  updateProduct,
+} from "@/lib/api/products/mutations";
+import { 
+  productIdSchema,
+  insertProductParams,
+  updateProductParams 
+} from "@/lib/db/schema/products";
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export async function GET(request: Request) {
-  const products = await getAllProducts();
-  return Response.json(products);
+export async function POST(req: Request) {
+  try {
+    const validatedData = insertProductParams.parse(await req.json());
+    const { product } = await createProduct(validatedData);
+
+    revalidatePath("/products"); // optional - assumes you will have named route same as entity
+
+    return NextResponse.json(product, { status: 201 });
+  } catch (err) {
+    if (err instanceof z.ZodError) {
+      return NextResponse.json({ error: err.issues }, { status: 400 });
+    } else {
+      return NextResponse.json({ error: err }, { status: 500 });
+    }
+  }
 }
 
-export async function POST(request: Request) {
-  const product = await createProduct(await request.json());
-  return Response.json(product);
+
+export async function PUT(req: Request) {
+  try {
+    const { searchParams } = new URL(req.url);
+    const id = searchParams.get("id");
+
+    const validatedData = updateProductParams.parse(await req.json());
+    const validatedParams = productIdSchema.parse({ id });
+
+    const { product } = await updateProduct(validatedParams.id, validatedData);
+
+    return NextResponse.json(product, { status: 200 });
+  } catch (err) {
+    if (err instanceof z.ZodError) {
+      return NextResponse.json({ error: err.issues }, { status: 400 });
+    } else {
+      return NextResponse.json(err, { status: 500 });
+    }
+  }
 }
 
-export async function PATCH(request: Request) {
-  const product = await updateProduct(await request.json());
-  return Response.json(product);
-}
+export async function DELETE(req: Request) {
+  try {
+    const { searchParams } = new URL(req.url);
+    const id = searchParams.get("id");
 
-export async function DELETE(request: NextRequest) {
-  const id = request.nextUrl.searchParams.get('id');
-  if (!id) return Response.error();
-  const product = await deleteProduct(id);
-  return Response.json(product);
+    const validatedParams = productIdSchema.parse({ id });
+    const { product } = await deleteProduct(validatedParams.id);
+
+    return NextResponse.json(product, { status: 200 });
+  } catch (err) {
+    if (err instanceof z.ZodError) {
+      return NextResponse.json({ error: err.issues }, { status: 400 });
+    } else {
+      return NextResponse.json(err, { status: 500 });
+    }
+  }
 }

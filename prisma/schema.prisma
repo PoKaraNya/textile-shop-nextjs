@@ -81,3 +81,15 @@ model Order {
   @@index([id])
   @@index([userId])
 }
+
+model Product {
+  id          String   @id @default(cuid())
+  title       String   @unique
+  description String?
+  photo       String?
+  price       Float
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([title])
+}
