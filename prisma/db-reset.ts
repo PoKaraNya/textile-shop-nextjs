@@ -1,14 +1,33 @@
-const { PrismaClient: PrismaClientReset } = require('@prisma/client');
+import { PrismaClient } from '@prisma/client';
 
-const tableNames = ['User', 'Session', 'VerificationToken', 'Account', 'Category', 'Product', 'ProductCategory'];
+type TableNames = Array<{ tablename: string }>;
+type Sequences = Array<{ relname: string }>;
 
-const prismaReset = new PrismaClientReset();
+const prisma = new PrismaClient();
+
 async function resetDb() {
-  for (const tableName of tableNames) {
-    await prismaReset.$queryRawUnsafe(`Truncate "${tableName}" restart identity cascade;`);
+  const tablenames = await prisma.$queryRaw<TableNames>`
+  SELECT tablename FROM pg_tables WHERE schemaname='public'`;
+  const tables = tablenames
+    .map(({ tablename }) => tablename)
+    .filter((name) => name !== '_prisma_migrations')
+    .map((name) => `"public"."${name}"`)
+    .join(', ');
+  await prisma.$executeRawUnsafe(`TRUNCATE TABLE ${tables} CASCADE;`);
+
+  // reset all the sequences (ids)
+  const sequences = await prisma.$queryRaw<Sequences>`
+  SELECT c.relname FROM pg_class AS c
+    JOIN pg_namespace AS n ON c.relnamespace = n.oid
+  WHERE
+    c.relkind='S'
+  AND
+    n.nspname='public';`;
+  for (const { relname } of sequences) {
+    await prisma.$executeRawUnsafe(`ALTER SEQUENCE "public"."${relname}" RESTART WITH 1;`);
   }
 }
 
 resetDb().finally(async () => {
-  await prismaReset.$disconnect();
+  await prisma.$disconnect();
 });
