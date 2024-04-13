@@ -1,7 +1,6 @@
 import { orderSchema } from '@/zodAutoGenSchemas';
 import { z } from 'zod';
 import { timestamps } from '@/lib/utils';
-// eslint-disable-next-line import/no-cycle
 import { getOrders } from '@/lib/api/orders/queries';
 
 // Schema for orders - used to validate API requests
