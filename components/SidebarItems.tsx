@@ -15,7 +15,7 @@ export interface SidebarLinkType {
   icon: LucideIcon;
 }
 
-function SidebarLink({
+export function SidebarLink({
   link,
   active,
 }: {

@@ -56,6 +56,7 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  orders        Order[]
 }
 
 model VerificationToken {
@@ -90,4 +91,19 @@ model ProductCategory {
   categoryId String
 
   @@id([productId, categoryId])
+}
+
+model Order {
+  id        String   @id @default(cuid())
+  number    Int
+  price     Float
+  notes     String?
+  // product   Product  @relation(fields: [productId], references: [id]) TO MANY-MANY
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([id])
+  @@index([userId])
 }

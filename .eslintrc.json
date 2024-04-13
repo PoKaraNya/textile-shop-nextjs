@@ -37,6 +37,8 @@
     "eslint-disable-next-line no-var": "off",
     "vars-on-top": "off",
     "no-var": "off",
-    "no-restricted-syntax": "off"
+    "no-restricted-syntax": "off",
+    "no-console": "off",
+    "@typescript-eslint/no-unused-expressions": "off"
   }
 }
