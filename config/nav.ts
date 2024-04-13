@@ -22,7 +22,11 @@ export const additionalLinks: AdditionalLinks[] = [
         title: 'Orders',
         icon: Globe,
       },
+      {
+        href: '/products',
+        title: 'Products',
+        icon: Globe,
+      },
     ],
   },
-
 ];
