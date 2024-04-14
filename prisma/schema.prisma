@@ -93,6 +93,7 @@ model OrderProducts {
   productId String
   order     Order   @relation(fields: [orderId], references: [id])
   orderId   String
+  count     Int
 }
 
 model Product {
