@@ -22,7 +22,13 @@ const generateOrders = async (count: number) => {
       price: getRandomNumber(50000),
       notes: faker.lorem.sentence(),
       user: connectRandom(users),
-      orderProducts: connectRandomMany(products, 'product', 10),
+      orderProducts: {
+        create: connectRandomMany(products, 'product', 10).create
+          .map((el) => ({
+            ...el,
+            count: getRandomNumber(1, 5),
+          })),
+      },
     },
   }));
 };
