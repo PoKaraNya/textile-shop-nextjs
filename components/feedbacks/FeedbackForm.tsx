@@ -7,15 +7,20 @@ import { toast } from 'sonner';
 import { useValidatedForm } from '@/lib/hooks/useValidatedForm';
 
 import { type Action, cn } from '@/lib/utils';
-import { type TAddOptimistic } from '@/app/(app)/products/useOptimisticProducts';
+import { type TAddOptimistic } from '@/app/(app)/feedbacks/useOptimisticFeedbacks';
 
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { useBackPath } from '@/components/shared/BackButton';
 
-import { insertProductParams, type Product } from '@/lib/db/schema/products';
-import { createProductAction, deleteProductAction, updateProductAction } from '@/lib/actions/products';
+import {
+  Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
+} from '@/components/ui/select';
+
+import { type Feedback, insertFeedbackParams } from '@/lib/db/schema/feedbacks';
+import { createFeedbackAction, deleteFeedbackAction, updateFeedbackAction } from '@/lib/actions/feedbacks';
+import { type Product, type ProductId } from '@/lib/db/schema/products';
 
 const SaveButton = ({
   editing,
@@ -41,35 +46,37 @@ const SaveButton = ({
   );
 };
 
-const ProductForm = ({
-
-  product,
+const FeedbackForm = ({
+  products,
+  productId,
+  feedback,
   openModal,
   closeModal,
   addOptimistic,
   postSuccess,
 }: {
-  product?: Product | null;
-
-  openModal?: (product?: Product) => void;
+  feedback?: Feedback | null;
+  products: Product[];
+  productId?: ProductId
+  openModal?: (feedback?: Feedback) => void;
   closeModal?: () => void;
   addOptimistic?: TAddOptimistic;
   postSuccess?: () => void;
 }) => {
   const {
     errors, hasErrors, setErrors, handleChange,
-  } = useValidatedForm<Product>(insertProductParams);
-  const editing = !!product?.id;
+  } = useValidatedForm<Feedback>(insertFeedbackParams);
+  const editing = !!feedback?.id;
 
   const [isDeleting, setIsDeleting] = useState(false);
   const [pending, startMutation] = useTransition();
 
   const router = useRouter();
-  const backpath = useBackPath('products');
+  const backpath = useBackPath('feedbacks');
 
   const onSuccess = (
     action: Action,
-    data?: { error: string; values: Product },
+    data?: { error: string; values: Feedback },
   ) => {
     const failed = Boolean(data?.error);
     if (failed) {
@@ -80,7 +87,7 @@ const ProductForm = ({
     } else {
       router.refresh();
       postSuccess && postSuccess();
-      toast.success(`Product ${action}d!`);
+      toast.success(`Feedback ${action}d!`);
       if (action === 'delete') router.push(backpath);
     }
   };
@@ -89,34 +96,35 @@ const ProductForm = ({
     setErrors(null);
 
     const payload = Object.fromEntries(data.entries());
-    const productParsed = await insertProductParams.safeParseAsync({ ...payload });
-    if (!productParsed.success) {
-      setErrors(productParsed?.error.flatten().fieldErrors);
+    const feedbackParsed = await insertFeedbackParams.safeParseAsync({ productId, ...payload });
+    if (!feedbackParsed.success) {
+      setErrors(feedbackParsed?.error.flatten().fieldErrors);
       return;
     }
 
     closeModal && closeModal();
-    const values = productParsed.data;
-    const pendingProduct: Product = {
-      updatedAt: product?.updatedAt ?? new Date(),
-      createdAt: product?.createdAt ?? new Date(),
-      id: product?.id ?? '',
+    const values = feedbackParsed.data;
+    const pendingFeedback: Feedback = {
+      updatedAt: feedback?.updatedAt ?? new Date(),
+      createdAt: feedback?.createdAt ?? new Date(),
+      id: feedback?.id ?? '',
+      userId: feedback?.userId ?? '',
       ...values,
     };
     try {
       startMutation(async () => {
         addOptimistic && addOptimistic({
-          data: pendingProduct,
+          data: pendingFeedback,
           action: editing ? 'update' : 'create',
         });
 
         const error = editing
-          ? await updateProductAction({ ...values, id: product.id })
-          : await createProductAction(values);
+          ? await updateFeedbackAction({ ...values, id: feedback.id })
+          : await createFeedbackAction(values);
 
         const errorFormatted = {
           error: error ?? 'Error',
-          values: pendingProduct,
+          values: pendingFeedback,
         };
         onSuccess(
           editing ? 'update' : 'create',
@@ -137,19 +145,19 @@ const ProductForm = ({
         <Label
           className={cn(
             'mb-2 inline-block',
-            errors?.title ? 'text-destructive' : '',
+            errors?.text ? 'text-destructive' : '',
           )}
         >
-          Title
+          Text
         </Label>
         <Input
           type="text"
-          name="title"
-          className={cn(errors?.title ? 'ring ring-destructive' : '')}
-          defaultValue={product?.title ?? ''}
+          name="text"
+          className={cn(errors?.text ? 'ring ring-destructive' : '')}
+          defaultValue={feedback?.text ?? ''}
         />
-        {errors?.title ? (
-          <p className="text-xs text-destructive mt-2">{errors.title[0]}</p>
+        {errors?.text ? (
+          <p className="text-xs text-destructive mt-2">{errors.text[0]}</p>
         ) : (
           <div className="h-6" />
         )}
@@ -158,65 +166,56 @@ const ProductForm = ({
         <Label
           className={cn(
             'mb-2 inline-block',
-            errors?.description ? 'text-destructive' : '',
+            errors?.rating ? 'text-destructive' : '',
           )}
         >
-          Description
+          Rating
         </Label>
         <Input
           type="text"
-          name="description"
-          className={cn(errors?.description ? 'ring ring-destructive' : '')}
-          defaultValue={product?.description ?? ''}
+          name="rating"
+          className={cn(errors?.rating ? 'ring ring-destructive' : '')}
+          defaultValue={feedback?.rating ?? ''}
         />
-        {errors?.description ? (
-          <p className="text-xs text-destructive mt-2">{errors.description[0]}</p>
+        {errors?.rating ? (
+          <p className="text-xs text-destructive mt-2">{errors.rating[0]}</p>
         ) : (
           <div className="h-6" />
         )}
       </div>
-      <div>
-        <Label
-          className={cn(
-            'mb-2 inline-block',
-            errors?.photo ? 'text-destructive' : '',
+
+      {productId ? null : (
+        <div>
+          <Label
+            className={cn(
+              'mb-2 inline-block',
+              errors?.productId ? 'text-destructive' : '',
+            )}
+          >
+            Product
+          </Label>
+          <Select defaultValue={feedback?.productId} name="productId">
+            <SelectTrigger
+              className={cn(errors?.productId ? 'ring ring-destructive' : '')}
+            >
+              <SelectValue placeholder="Select a product" />
+            </SelectTrigger>
+            <SelectContent>
+              {products?.map((product) => (
+                <SelectItem key={product.id} value={product.id.toString()}>
+                  {product.id}
+                  {/* TODO: Replace with a field from the product model */}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          {errors?.productId ? (
+            <p className="text-xs text-destructive mt-2">{errors.productId[0]}</p>
+          ) : (
+            <div className="h-6" />
           )}
-        >
-          Photo
-        </Label>
-        <Input
-          type="text"
-          name="photo"
-          className={cn(errors?.photo ? 'ring ring-destructive' : '')}
-          defaultValue={product?.photo ?? ''}
-        />
-        {errors?.photo ? (
-          <p className="text-xs text-destructive mt-2">{errors.photo[0]}</p>
-        ) : (
-          <div className="h-6" />
-        )}
-      </div>
-      <div>
-        <Label
-          className={cn(
-            'mb-2 inline-block',
-            errors?.price ? 'text-destructive' : '',
-          )}
-        >
-          Price
-        </Label>
-        <Input
-          type="text"
-          name="price"
-          className={cn(errors?.price ? 'ring ring-destructive' : '')}
-          defaultValue={product?.price ?? ''}
-        />
-        {errors?.price ? (
-          <p className="text-xs text-destructive mt-2">{errors.price[0]}</p>
-        ) : (
-          <div className="h-6" />
-        )}
-      </div>
+        </div>
+      ) }
       {/* Schema fields end */}
 
       {/* Save Button */}
@@ -232,12 +231,12 @@ const ProductForm = ({
             setIsDeleting(true);
             closeModal && closeModal();
             startMutation(async () => {
-              addOptimistic && addOptimistic({ action: 'delete', data: product });
-              const error = await deleteProductAction(product.id);
+              addOptimistic && addOptimistic({ action: 'delete', data: feedback });
+              const error = await deleteFeedbackAction(feedback.id);
               setIsDeleting(false);
               const errorFormatted = {
                 error: error ?? 'Error',
-                values: product,
+                values: feedback,
               };
 
               onSuccess('delete', error ? errorFormatted : undefined);
@@ -252,4 +251,4 @@ const ProductForm = ({
   );
 };
 
-export default ProductForm;
+export default FeedbackForm;

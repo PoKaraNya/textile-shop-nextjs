@@ -1,11 +1,19 @@
-import { Suspense } from "react";
-
-import Loading from "@/app/loading";
-import CategoryList from "@/components/categories/CategoryList";
-import { getCategories } from "@/lib/api/categories/queries";
-
+import { Suspense } from 'react';
+import Loading from '@/app/loading';
+import CategoryList from '@/components/categories/CategoryList';
+import { getCategories } from '@/lib/api/categories/queries';
 
 export const revalidate = 0;
+
+const Categories = async () => {
+  const { categories } = await getCategories();
+
+  return (
+    <Suspense fallback={<Loading />}>
+      <CategoryList categories={categories} />
+    </Suspense>
+  );
+};
 
 export default async function CategoriesPage() {
   return (
@@ -19,14 +27,3 @@ export default async function CategoriesPage() {
     </main>
   );
 }
-
-const Categories = async () => {
-  
-  const { categories } = await getCategories();
-  
-  return (
-    <Suspense fallback={<Loading />}>
-      <CategoryList categories={categories}  />
-    </Suspense>
-  );
-};

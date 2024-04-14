@@ -1,0 +1,5 @@
+-- AlterTable
+ALTER TABLE "User" ALTER COLUMN "bonuses" DROP NOT NULL,
+ALTER COLUMN "dateOfBirth" DROP NOT NULL,
+ALTER COLUMN "failPurchases" DROP NOT NULL,
+ALTER COLUMN "successPurchases" DROP NOT NULL;
