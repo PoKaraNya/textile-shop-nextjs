@@ -13,6 +13,7 @@ const Feedbacks = async () => {
 
   const { feedbacks } = await getFeedbacks();
   const { products } = await getProducts();
+
   return (
     <Suspense fallback={<Loading />}>
       <FeedbackList feedbacks={feedbacks} products={products} />
