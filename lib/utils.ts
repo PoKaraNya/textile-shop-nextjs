@@ -19,3 +19,41 @@ export type OptimisticAction<T> = {
 
 export const getRandomElement = <T>(array: T[]): T => array[Math.floor(Math.random() * array.length)];
 export const getRandomNumber = (max: number): number => Math.trunc(Math.random() * max);
+
+type ConnectItem = {
+  connect: {
+    id: string
+  }
+};
+
+export const connectRandom = <T extends { id: string }>(array: T[]): ConnectItem => ({
+  connect: {
+    id: getRandomElement(array)?.id,
+  },
+});
+
+type ManyToManyConnection<U extends string> = Record<U, ConnectItem>;
+
+interface ConnectRandomManyOut<U extends string> {
+  create: ManyToManyConnection<U>[]
+}
+
+export const connectRandomMany = <T extends { id: string }, U extends string>(array: T[], field: U, count: number): ConnectRandomManyOut<U> => {
+  const create: ManyToManyConnection<U>[] = [];
+  const numberOfItems = getRandomNumber(count);
+
+  for (let i = 0; i < numberOfItems; i++) {
+    const item: ManyToManyConnection<U> = {
+      [field]: connectRandom(array),
+    } as ManyToManyConnection<U>;
+    create.push(item);
+  }
+
+  return { create };
+};
+
+export const timesAsync = async (count: number, cb: (index: number) => Promise<any>): Promise<void> => {
+  for (let i = 0; i < count; ++i) {
+    await cb(i);
+  }
+};
