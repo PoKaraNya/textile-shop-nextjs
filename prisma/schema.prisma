@@ -46,14 +46,19 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
-  accounts      Account[]
-  sessions      Session[]
-  orders        Order[]
+  id               String     @id @default(cuid())
+  name             String?
+  email            String?    @unique
+  emailVerified    DateTime?
+  image            String?
+  dateOfBirth      DateTime?
+  successPurchases Int?
+  failPurchases    Int?
+  bonuses          Int?
+  accounts         Account[]
+  sessions         Session[]
+  orders           Order[]
+  feedbacks        Feedback[]
 }
 
 model VerificationToken {
@@ -80,15 +85,16 @@ model Order {
 }
 
 model Product {
-  id          String   @id @default(cuid())
-  title       String   @unique
+  id          String     @id @default(cuid())
+  title       String     @unique
   description String?
   photo       String?
   price       Float
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  category    Category @relation(fields: [categoryId], references: [id])
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  category    Category   @relation(fields: [categoryId], references: [id])
   categoryId  String
+  Feedback    Feedback[]
 
   @@index([title])
 }
@@ -103,4 +109,18 @@ model Category {
   updatedAt   DateTime  @updatedAt
 
   @@index([title])
+}
+
+model Feedback {
+  id        String   @id @default(cuid())
+  text      String
+  rating    Int?
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId String
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
 }

@@ -1,11 +1,20 @@
-import { Suspense } from "react";
+import { Suspense } from 'react';
 
-import Loading from "@/app/loading";
-import ProductList from "@/components/products/ProductList";
-import { getProducts } from "@/lib/api/products/queries";
-
+import Loading from '@/app/loading';
+import ProductList from '@/components/products/ProductList';
+import { getProducts } from '@/lib/api/products/queries';
 
 export const revalidate = 0;
+
+const Products = async () => {
+  const { products } = await getProducts();
+
+  return (
+    <Suspense fallback={<Loading />}>
+      <ProductList products={products} />
+    </Suspense>
+  );
+};
 
 export default async function ProductsPage() {
   return (
@@ -19,14 +28,3 @@ export default async function ProductsPage() {
     </main>
   );
 }
-
-const Products = async () => {
-  
-  const { products } = await getProducts();
-  
-  return (
-    <Suspense fallback={<Loading />}>
-      <ProductList products={products}  />
-    </Suspense>
-  );
-};

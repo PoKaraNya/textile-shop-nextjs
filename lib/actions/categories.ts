@@ -1,11 +1,11 @@
-"use server";
+'use server';
 
-import { revalidatePath } from "next/cache";
+import { revalidatePath } from 'next/cache';
 import {
   createCategory,
   deleteCategory,
   updateCategory,
-} from "@/lib/api/categories/mutations";
+} from '@/lib/api/categories/mutations';
 import {
   CategoryId,
   NewCategoryParams,
@@ -13,19 +13,19 @@ import {
   categoryIdSchema,
   insertCategoryParams,
   updateCategoryParams,
-} from "@/lib/db/schema/categories";
+} from '@/lib/db/schema/categories';
 
 const handleErrors = (e: unknown) => {
-  const errMsg = "Error, please try again.";
+  const errMsg = 'Error, please try again.';
   if (e instanceof Error) return e.message.length > 0 ? e.message : errMsg;
-  if (e && typeof e === "object" && "error" in e) {
+  if (e && typeof e === 'object' && 'error' in e) {
     const errAsStr = e.error as string;
     return errAsStr.length > 0 ? errAsStr : errMsg;
   }
   return errMsg;
 };
 
-const revalidateCategories = () => revalidatePath("/categories");
+const revalidateCategories = () => revalidatePath('/categories');
 
 export const createCategoryAction = async (input: NewCategoryParams) => {
   try {

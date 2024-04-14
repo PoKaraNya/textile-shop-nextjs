@@ -3,24 +3,24 @@ import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 
 import {
-  createCategory,
-  deleteCategory,
-  updateCategory,
-} from '@/lib/api/categories/mutations';
+  createFeedback,
+  deleteFeedback,
+  updateFeedback,
+} from '@/lib/api/feedbacks/mutations';
 import {
-  categoryIdSchema,
-  insertCategoryParams,
-  updateCategoryParams,
-} from '@/lib/db/schema/categories';
+  feedbackIdSchema,
+  insertFeedbackParams,
+  updateFeedbackParams,
+} from '@/lib/db/schema/feedbacks';
 
 export async function POST(req: Request) {
   try {
-    const validatedData = insertCategoryParams.parse(await req.json());
-    const { category } = await createCategory(validatedData);
+    const validatedData = insertFeedbackParams.parse(await req.json());
+    const { feedback } = await createFeedback(validatedData);
 
-    revalidatePath('/categories'); // optional - assumes you will have named route same as entity
+    revalidatePath('/feedbacks'); // optional - assumes you will have named route same as entity
 
-    return NextResponse.json(category, { status: 201 });
+    return NextResponse.json(feedback, { status: 201 });
   } catch (err) {
     if (err instanceof z.ZodError) {
       return NextResponse.json({ error: err.issues }, { status: 400 });
@@ -34,12 +34,12 @@ export async function PUT(req: Request) {
     const { searchParams } = new URL(req.url);
     const id = searchParams.get('id');
 
-    const validatedData = updateCategoryParams.parse(await req.json());
-    const validatedParams = categoryIdSchema.parse({ id });
+    const validatedData = updateFeedbackParams.parse(await req.json());
+    const validatedParams = feedbackIdSchema.parse({ id });
 
-    const { category } = await updateCategory(validatedParams.id, validatedData);
+    const { feedback } = await updateFeedback(validatedParams.id, validatedData);
 
-    return NextResponse.json(category, { status: 200 });
+    return NextResponse.json(feedback, { status: 200 });
   } catch (err) {
     if (err instanceof z.ZodError) {
       return NextResponse.json({ error: err.issues }, { status: 400 });
@@ -53,10 +53,10 @@ export async function DELETE(req: Request) {
     const { searchParams } = new URL(req.url);
     const id = searchParams.get('id');
 
-    const validatedParams = categoryIdSchema.parse({ id });
-    const { category } = await deleteCategory(validatedParams.id);
+    const validatedParams = feedbackIdSchema.parse({ id });
+    const { feedback } = await deleteFeedback(validatedParams.id);
 
-    return NextResponse.json(category, { status: 200 });
+    return NextResponse.json(feedback, { status: 200 });
   } catch (err) {
     if (err instanceof z.ZodError) {
       return NextResponse.json({ error: err.issues }, { status: 400 });

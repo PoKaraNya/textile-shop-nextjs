@@ -21,6 +21,7 @@
     "db:reset:prod": "env-cmd -f .env.prod ts-node prisma/db-reset.ts",
     "db:push": "env-cmd -f .env.dev prisma db push",
     "db:push:prod": "env-cmd -f .env.prod prisma db push",
+    "db:sync": "pnpm run db:reset && pnpm run db:generate && pnpm run db:migrate && pnpm run db:push",
     "prepare": "husky && husky install",
     "test": "jest",
     "test:watch": "jest --watch",

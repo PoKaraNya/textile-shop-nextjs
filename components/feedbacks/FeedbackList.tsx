@@ -5,28 +5,28 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 import { cn } from '@/lib/utils';
-import { CompleteProduct, type Product } from '@/lib/db/schema/products';
+import { CompleteFeedback, type Feedback } from '@/lib/db/schema/feedbacks';
 import Modal from '@/components/shared/Modal';
-
-import { useOptimisticProducts } from '@/app/(app)/products/useOptimisticProducts';
+import { type Product, type ProductId } from '@/lib/db/schema/products';
+import { useOptimisticFeedbacks } from '@/app/(app)/feedbacks/useOptimisticFeedbacks';
 import { Button } from '@/components/ui/button';
 import { PlusIcon } from 'lucide-react';
-import ProductForm from './ProductForm';
+import FeedbackForm from './FeedbackForm';
 
-type TOpenModal = (product?: Product) => void;
+type TOpenModal = (feedback?: Feedback) => void;
 
-const ProductElement = ({
-  product,
+const FeedbackElement = ({
+  feedback,
 }: {
-  product: CompleteProduct;
+  feedback: CompleteFeedback;
 }) => {
-  const optimistic = product.id === 'optimistic';
-  const deleting = product.id === 'delete';
+  const optimistic = feedback.id === 'optimistic';
+  const deleting = feedback.id === 'delete';
   const mutating = optimistic || deleting;
   const pathname = usePathname();
-  const basePath = pathname.includes('products')
+  const basePath = pathname.includes('feedbacks')
     ? pathname
-    : `${pathname}/products/`;
+    : `${pathname}/feedbacks/`;
 
   return (
     <li
@@ -37,10 +37,10 @@ const ProductElement = ({
       )}
     >
       <div className="w-full">
-        <div>{product.title}</div>
+        <div>{feedback.text}</div>
       </div>
       <Button variant="link" asChild>
-        <Link href={`${basePath}/${product.id}`}>
+        <Link href={`${basePath}/${feedback.id}`}>
           Edit
         </Link>
       </Button>
@@ -51,38 +51,40 @@ const ProductElement = ({
 const EmptyState = ({ openModal }: { openModal: TOpenModal }) => (
   <div className="text-center">
     <h3 className="mt-2 text-sm font-semibold text-secondary-foreground">
-      No products
+      No feedbacks
     </h3>
     <p className="mt-1 text-sm text-muted-foreground">
-      Get started by creating a new product.
+      Get started by creating a new feedback.
     </p>
     <div className="mt-6">
       <Button onClick={() => openModal()}>
         <PlusIcon className="h-4" />
         {' '}
-        New Products
+        New Feedbacks
         {' '}
       </Button>
     </div>
   </div>
 );
 
-export default function ProductList({
+export default function FeedbackList({
+  feedbacks,
   products,
-
+  productId,
 }: {
-  products: CompleteProduct[];
-
+  feedbacks: CompleteFeedback[];
+  products: Product[];
+  productId?: ProductId
 }) {
-  const { optimisticProducts, addOptimisticProduct } = useOptimisticProducts(
+  const { optimisticFeedbacks, addOptimisticFeedback } = useOptimisticFeedbacks(
+    feedbacks,
     products,
-
   );
   const [open, setOpen] = useState(false);
-  const [activeProduct, setActiveProduct] = useState<Product | null>(null);
-  const openModal = (product?: Product) => {
+  const [activeFeedback, setActiveFeedback] = useState<Feedback | null>(null);
+  const openModal = (feedback?: Feedback) => {
     setOpen(true);
-    product ? setActiveProduct(product) : setActiveProduct(null);
+    feedback ? setActiveFeedback(feedback) : setActiveFeedback(null);
   };
   const closeModal = () => setOpen(false);
 
@@ -91,14 +93,15 @@ export default function ProductList({
       <Modal
         open={open}
         setOpen={setOpen}
-        title={activeProduct ? 'Edit Product' : 'Create Product'}
+        title={activeFeedback ? 'Edit Feedback' : 'Create Feedback'}
       >
-        <ProductForm
-          product={activeProduct}
-          addOptimistic={addOptimisticProduct}
+        <FeedbackForm
+          feedback={activeFeedback}
+          addOptimistic={addOptimisticFeedback}
           openModal={openModal}
           closeModal={closeModal}
-
+          products={products}
+          productId={productId}
         />
       </Modal>
       <div className="absolute right-0 top-0 ">
@@ -106,14 +109,14 @@ export default function ProductList({
           +
         </Button>
       </div>
-      {optimisticProducts.length === 0 ? (
+      {optimisticFeedbacks.length === 0 ? (
         <EmptyState openModal={openModal} />
       ) : (
         <ul>
-          {optimisticProducts.map((product) => (
-            <ProductElement
-              product={product}
-              key={product.id}
+          {optimisticFeedbacks.map((feedback) => (
+            <FeedbackElement
+              feedback={feedback}
+              key={feedback.id}
             />
           ))}
         </ul>
