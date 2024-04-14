@@ -59,6 +59,9 @@ model User {
   sessions         Session[]
   orders           Order[]
   feedbacks        Feedback[]
+
+  @@index([id])
+  @@index([email])
 }
 
 model VerificationToken {
@@ -70,31 +73,40 @@ model VerificationToken {
 }
 
 model Order {
-  id        String   @id @default(cuid())
-  number    Int
-  price     Float
-  notes     String?
-  // product   Product  @relation(fields: [productId], references: [id]) TO MANY-MANY
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id            String          @id @default(cuid())
+  number        Int             @unique @default(autoincrement())
+  price         Float
+  notes         String?
+  userId        String
+  user          User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  orderProducts OrderProducts[]
 
   @@index([id])
   @@index([userId])
 }
 
+model OrderProducts {
+  id        String  @id @default(cuid())
+  product   Product @relation(fields: [productId], references: [id])
+  productId String
+  order     Order   @relation(fields: [orderId], references: [id])
+  orderId   String
+}
+
 model Product {
-  id          String     @id @default(cuid())
-  title       String     @unique
-  description String?
-  photo       String?
-  price       Float
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
-  category    Category   @relation(fields: [categoryId], references: [id])
-  categoryId  String
-  Feedback    Feedback[]
+  id            String          @id @default(cuid())
+  title         String          @unique
+  description   String?
+  photo         String?
+  price         Float
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  category      Category        @relation(fields: [categoryId], references: [id])
+  categoryId    String
+  feedback      Feedback[]
+  orderProducts OrderProducts[]
 
   @@index([title])
 }
