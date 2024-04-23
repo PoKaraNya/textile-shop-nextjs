@@ -1,4 +1,4 @@
-import { feedbackSchema } from '@/zodAutoGenSchemas';
+import { feedbackSchema } from '@/prisma/zod';
 import { z } from 'zod';
 import { timestamps } from '@/lib/utils';
 import { getFeedbacks } from '@/lib/api/feedbacks/queries';

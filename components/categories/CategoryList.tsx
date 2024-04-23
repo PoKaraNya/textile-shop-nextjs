@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils';
 import { type Category, CompleteCategory } from '@/lib/db/schema/categories';
 import Modal from '@/components/shared/Modal';
 
-import { useOptimisticCategories } from '@/app/(app)/categories/useOptimisticCategories';
+import { useOptimisticCategories } from '@/app/admin/categories/useOptimisticCategories';
 import { Button } from '@/components/ui/button';
 import { PlusIcon } from 'lucide-react';
 import CategoryForm from './CategoryForm';

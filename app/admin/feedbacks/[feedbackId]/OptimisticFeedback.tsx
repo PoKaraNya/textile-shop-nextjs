@@ -1,7 +1,7 @@
 'use client';
 
 import { useOptimistic, useState } from 'react';
-import { TAddOptimistic } from '@/app/(app)/feedbacks/useOptimisticFeedbacks';
+import { TAddOptimistic } from '@/app/admin/feedbacks/useOptimisticFeedbacks';
 import { type Feedback } from '@/lib/db/schema/feedbacks';
 import { cn } from '@/lib/utils';
 

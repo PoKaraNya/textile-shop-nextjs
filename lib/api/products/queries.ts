@@ -1,4 +1,4 @@
-import { db } from '@/lib/db/index';
+import { db } from '@/lib/db';
 import { type ProductId, productIdSchema } from '@/lib/db/schema/products';
 
 export const getProducts = async () => {

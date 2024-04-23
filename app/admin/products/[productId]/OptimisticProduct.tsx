@@ -1,39 +1,41 @@
 'use client';
 
 import { useOptimistic, useState } from 'react';
-import { TAddOptimistic } from '@/app/(app)/orders/useOptimisticOrders';
-import { type Order } from '@/lib/db/schema/orders';
+import { TAddOptimistic } from '@/app/admin/products/useOptimisticProducts';
+import { type Product } from '@/lib/db/schema/products';
 import { cn } from '@/lib/utils';
 
 import { Button } from '@/components/ui/button';
 import Modal from '@/components/shared/Modal';
-import OrderForm from '@/components/orders/OrderForm';
+import ProductForm from '@/components/products/ProductForm';
 
-export default function OptimisticOrder({
-  order,
+export default function OptimisticProduct({
+  product,
+
 }: {
-  order: Order;
+  product: Product;
+
 }) {
   const [open, setOpen] = useState(false);
   const openModal = () => {
     setOpen(true);
   };
   const closeModal = () => setOpen(false);
-  const [optimisticOrder, setOptimisticOrder] = useOptimistic(order);
-  const updateOrder: TAddOptimistic = (input) => setOptimisticOrder({ ...input.data });
+  const [optimisticProduct, setOptimisticProduct] = useOptimistic(product);
+  const updateProduct: TAddOptimistic = (input) => setOptimisticProduct({ ...input.data });
 
   return (
     <div className="m-4">
       <Modal open={open} setOpen={setOpen}>
-        <OrderForm
-          order={optimisticOrder}
+        <ProductForm
+          product={optimisticProduct}
           closeModal={closeModal}
           openModal={openModal}
-          addOptimistic={updateOrder}
+          addOptimistic={updateProduct}
         />
       </Modal>
       <div className="flex justify-between items-end mb-4">
-        <h1 className="font-semibold text-2xl">{optimisticOrder.number}</h1>
+        <h1 className="font-semibold text-2xl">{optimisticProduct.title}</h1>
         <Button className="" onClick={() => setOpen(true)}>
           Edit
         </Button>
@@ -41,10 +43,10 @@ export default function OptimisticOrder({
       <pre
         className={cn(
           'bg-secondary p-4 rounded-lg break-all text-wrap',
-          optimisticOrder.id === 'optimistic' ? 'animate-pulse' : '',
+          optimisticProduct.id === 'optimistic' ? 'animate-pulse' : '',
         )}
       >
-        {JSON.stringify(optimisticOrder, null, 2)}
+        {JSON.stringify(optimisticProduct, null, 2)}
       </pre>
     </div>
   );

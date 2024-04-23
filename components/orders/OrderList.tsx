@@ -7,7 +7,7 @@ import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { CompleteOrder, type Order } from '@/lib/db/schema/orders';
 import Modal from '@/components/shared/Modal';
-import { useOptimisticOrders } from '@/app/(app)/orders/useOptimisticOrders';
+import { useOptimisticOrders } from '@/app/admin/orders/useOptimisticOrders';
 import { Button } from '@/components/ui/button';
 import { PlusIcon } from 'lucide-react';
 import OrderForm from './OrderForm';

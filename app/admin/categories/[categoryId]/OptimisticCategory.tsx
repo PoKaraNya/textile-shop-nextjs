@@ -1,19 +1,19 @@
 'use client';
 
 import { useOptimistic, useState } from 'react';
-import { TAddOptimistic } from '@/app/(app)/products/useOptimisticProducts';
-import { type Product } from '@/lib/db/schema/products';
+import { TAddOptimistic } from '@/app/admin/categories/useOptimisticCategories';
+import { type Category } from '@/lib/db/schema/categories';
 import { cn } from '@/lib/utils';
 
 import { Button } from '@/components/ui/button';
 import Modal from '@/components/shared/Modal';
-import ProductForm from '@/components/products/ProductForm';
+import CategoryForm from '@/components/categories/CategoryForm';
 
-export default function OptimisticProduct({
-  product,
+export default function OptimisticCategory({
+  category,
 
 }: {
-  product: Product;
+  category: Category;
 
 }) {
   const [open, setOpen] = useState(false);
@@ -21,21 +21,21 @@ export default function OptimisticProduct({
     setOpen(true);
   };
   const closeModal = () => setOpen(false);
-  const [optimisticProduct, setOptimisticProduct] = useOptimistic(product);
-  const updateProduct: TAddOptimistic = (input) => setOptimisticProduct({ ...input.data });
+  const [optimisticCategory, setOptimisticCategory] = useOptimistic(category);
+  const updateCategory: TAddOptimistic = (input) => setOptimisticCategory({ ...input.data });
 
   return (
     <div className="m-4">
       <Modal open={open} setOpen={setOpen}>
-        <ProductForm
-          product={optimisticProduct}
+        <CategoryForm
+          category={optimisticCategory}
           closeModal={closeModal}
           openModal={openModal}
-          addOptimistic={updateProduct}
+          addOptimistic={updateCategory}
         />
       </Modal>
       <div className="flex justify-between items-end mb-4">
-        <h1 className="font-semibold text-2xl">{optimisticProduct.title}</h1>
+        <h1 className="font-semibold text-2xl">{optimisticCategory.title}</h1>
         <Button className="" onClick={() => setOpen(true)}>
           Edit
         </Button>
@@ -43,10 +43,10 @@ export default function OptimisticProduct({
       <pre
         className={cn(
           'bg-secondary p-4 rounded-lg break-all text-wrap',
-          optimisticProduct.id === 'optimistic' ? 'animate-pulse' : '',
+          optimisticCategory.id === 'optimistic' ? 'animate-pulse' : '',
         )}
       >
-        {JSON.stringify(optimisticProduct, null, 2)}
+        {JSON.stringify(optimisticCategory, null, 2)}
       </pre>
     </div>
   );

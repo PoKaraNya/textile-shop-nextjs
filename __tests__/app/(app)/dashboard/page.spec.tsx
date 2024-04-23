@@ -1,8 +1,9 @@
 import { render, screen } from '@testing-library/react';
-import DashboardPage from '@/app/(app)/dashboard/page';
+import DashboardPage from '@/app/admin/dashboard/page';
+import { expect, test } from 'vitest';
 
 describe('DashboardPage', () => {
-  it('Should render correctly', async () => {
+  test('Should render correctly', async () => {
     render(await DashboardPage());
     const header = screen.getByRole('heading');
     const headerText = 'Dashboard';

@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils';
 import { CompleteFeedback, type Feedback } from '@/lib/db/schema/feedbacks';
 import Modal from '@/components/shared/Modal';
 import { type Product, type ProductId } from '@/lib/db/schema/products';
-import { useOptimisticFeedbacks } from '@/app/(app)/feedbacks/useOptimisticFeedbacks';
+import { useOptimisticFeedbacks } from '@/app/admin/feedbacks/useOptimisticFeedbacks';
 import { Button } from '@/components/ui/button';
 import { PlusIcon } from 'lucide-react';
 import FeedbackForm from './FeedbackForm';
