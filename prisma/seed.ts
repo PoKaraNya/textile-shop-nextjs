@@ -69,7 +69,7 @@ const generateFeedbacks = async (count: number) => {
   }));
 };
 
-async function seedDb() {
+export async function seedDb() {
   await generateUsers(50);
   await generateCategories(10);
   await generateProducts(100); // category

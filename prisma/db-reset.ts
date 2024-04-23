@@ -5,7 +5,7 @@ type Sequences = Array<{ relname: string }>;
 
 const prisma = new PrismaClient();
 
-async function resetDb() {
+export async function resetDb() {
   const tablenames = await prisma.$queryRaw<TableNames>`
   SELECT tablename FROM pg_tables WHERE schemaname='public'`;
   const tables = tablenames

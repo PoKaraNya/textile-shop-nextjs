@@ -5,7 +5,7 @@ const createJestConfig = nextJest({
 });
 
 const customJestConfig = {
-  setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.ts', '<rootDir>/prisma/singleton.ts'],
   testEnvironment: 'jsdom',
   coverageProvider: 'v8',
   coverageThreshold: {

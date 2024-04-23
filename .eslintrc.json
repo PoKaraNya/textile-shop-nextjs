@@ -41,6 +41,7 @@
     "no-console": "off",
     "@typescript-eslint/no-unused-expressions": "off",
     "max-len": "off",
-    "import/no-cycle": "off"
+    "import/no-cycle": "off",
+    "jsx-a11y/control-has-associated-label": "off"
   }
 }

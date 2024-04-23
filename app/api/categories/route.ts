@@ -1,33 +1,31 @@
 import { NextResponse } from 'next/server';
-import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 
-import {
-  createCategory,
-  deleteCategory,
-  updateCategory,
-} from '@/lib/api/categories/mutations';
-import {
-  categoryIdSchema,
-  insertCategoryParams,
-  updateCategoryParams,
-} from '@/lib/db/schema/categories';
+import { deleteCategory, updateCategory } from '@/lib/api/categories/mutations';
+import { categoryIdSchema, updateCategoryParams } from '@/lib/db/schema/categories';
 
-export async function POST(req: Request) {
-  try {
-    const validatedData = insertCategoryParams.parse(await req.json());
-    const { category } = await createCategory(validatedData);
-
-    revalidatePath('/categories'); // optional - assumes you will have named route same as entity
-
-    return NextResponse.json(category, { status: 201 });
-  } catch (err) {
-    if (err instanceof z.ZodError) {
-      return NextResponse.json({ error: err.issues }, { status: 400 });
-    }
-    return NextResponse.json({ error: err }, { status: 500 });
-  }
+export async function GET() {
+  // console.log(req);
+  // return NextResponse.json({ data: getCategories() }, { status: 200 });
+  console.log('asdfasdf');
+  return 2;
 }
+
+// export async function POST(req: Request) {
+//   try {
+//     const validatedData = insertCategoryParams.parse(await req.json());
+//     const { category } = await createCategory(validatedData);
+//
+//     revalidatePath('/categories'); // optional - assumes you will have named route same as entity
+//
+//     return NextResponse.json(category, { status: 201 });
+//   } catch (err) {
+//     if (err instanceof z.ZodError) {
+//       return NextResponse.json({ error: err.issues }, { status: 400 });
+//     }
+//     return NextResponse.json({ error: err }, { status: 500 });
+//   }
+// }
 
 export async function PUT(req: Request) {
   try {
