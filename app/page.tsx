@@ -1,8 +1,3 @@
-/**
- * v0 by Vercel.
- * @see https://v0.dev/t/PmwTvNfrVgf
- * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
- */
 import Link from 'next/link';
 import { ModeToggle } from '@/components/ui/ThemeToggle';
 
@@ -35,6 +30,18 @@ export default function LandingPage() {
           <span className="sr-only">Acme Inc</span>
         </Link>
         <nav className="ml-auto flex gap-4 sm:gap-6">
+          <Link
+            className="text-sm font-medium hover:underline underline-offset-4"
+            href="/categories"
+          >
+            Categories
+          </Link>
+          <Link
+            className="text-sm font-medium hover:underline underline-offset-4"
+            href="/products"
+          >
+            Products
+          </Link>
           <Link
             className="text-sm font-medium hover:underline underline-offset-4"
             href="#features"
