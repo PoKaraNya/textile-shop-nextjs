@@ -5,7 +5,7 @@ interface Props {
   categories: Category[]
 }
 
-function CategoryGrid({ categories }: Props) {
+export function CategoryGrid({ categories }: Props) {
   return (
     <div className="flex flex-wrap gap-5 justify-around">
       {categories.map((product: Category) => (
@@ -14,5 +14,3 @@ function CategoryGrid({ categories }: Props) {
     </div>
   );
 }
-
-export default CategoryGrid;

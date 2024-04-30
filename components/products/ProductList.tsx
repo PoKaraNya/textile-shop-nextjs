@@ -6,12 +6,12 @@ import { usePathname } from 'next/navigation';
 
 import { cn } from '@/lib/utils';
 import { CompleteProduct, type Product } from '@/lib/db/schema/products';
-import Modal from '@/components/shared/Modal';
+import { Modal } from '@/components/shared/Modal';
 
 import { useOptimisticProducts } from '@/app/admin/products/useOptimisticProducts';
 import { Button } from '@/components/ui/button';
 import { PlusIcon } from 'lucide-react';
-import ProductForm from './ProductForm';
+import { ProductForm } from './ProductForm';
 
 type TOpenModal = (product?: Product) => void;
 
@@ -67,16 +67,13 @@ const EmptyState = ({ openModal }: { openModal: TOpenModal }) => (
   </div>
 );
 
-export default function ProductList({
+export function ProductList({
   products,
-
 }: {
   products: CompleteProduct[];
-
 }) {
   const { optimisticProducts, addOptimisticProduct } = useOptimisticProducts(
     products,
-
   );
   const [open, setOpen] = useState(false);
   const [activeProduct, setActiveProduct] = useState<Product | null>(null);

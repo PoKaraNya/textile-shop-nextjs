@@ -7,7 +7,6 @@ import { toast } from 'sonner';
 import { useValidatedForm } from '@/lib/hooks/useValidatedForm';
 
 import { type Action, cn } from '@/lib/utils';
-import { type TAddOptimistic } from '@/app/(app)/categories/useOptimisticCategories';
 
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -16,6 +15,7 @@ import { useBackPath } from '@/components/shared/BackButton';
 
 import { type Category, insertCategoryParams } from '@/lib/db/schema/categories';
 import { createCategoryAction, deleteCategoryAction, updateCategoryAction } from '@/lib/actions/categories';
+import { TAddOptimistic } from '@/app/admin/categories/useOptimisticCategories';
 
 const SaveButton = ({
   editing,

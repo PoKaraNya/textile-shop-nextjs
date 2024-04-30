@@ -1,3 +1,5 @@
+'use client';
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -6,8 +8,16 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
+import { useRouter } from 'next/navigation';
+import { signIn, signOut } from 'next-auth/react';
 
-function NavbarDropdown({ isLoggedIn }: any) {
+interface Props {
+  isLoggedIn: boolean;
+}
+
+export function NavbarDropdown({ isLoggedIn }: Props) {
+  const router = useRouter();
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -29,18 +39,21 @@ function NavbarDropdown({ isLoggedIn }: any) {
       <DropdownMenuContent align="end">
         {isLoggedIn ? (
           <>
-            <DropdownMenuItem>Profile</DropdownMenuItem>
-            <DropdownMenuItem>Orders</DropdownMenuItem>
-            <DropdownMenuItem>Settings</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => router.push('/profile')}>Profile</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => router.push('/orders')}>Orders</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => router.push('/settings')}>Settings</DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Logout</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => signOut()}>
+              Logout
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => router.push('/admin/dashboard')}>Dashboard</DropdownMenuItem>
           </>
         ) : (
-          <DropdownMenuItem>Login</DropdownMenuItem>
+          <DropdownMenuItem onClick={() => signIn(undefined, { callbackUrl: '/' })}>
+            Login
+          </DropdownMenuItem>
         )}
       </DropdownMenuContent>
     </DropdownMenu>
   );
 }
-
-export default NavbarDropdown;

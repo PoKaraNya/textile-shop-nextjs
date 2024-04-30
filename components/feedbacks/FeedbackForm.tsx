@@ -7,7 +7,6 @@ import { toast } from 'sonner';
 import { useValidatedForm } from '@/lib/hooks/useValidatedForm';
 
 import { type Action, cn } from '@/lib/utils';
-import { type TAddOptimistic } from '@/app/(app)/feedbacks/useOptimisticFeedbacks';
 
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -21,6 +20,7 @@ import {
 import { type Feedback, insertFeedbackParams } from '@/lib/db/schema/feedbacks';
 import { createFeedbackAction, deleteFeedbackAction, updateFeedbackAction } from '@/lib/actions/feedbacks';
 import { type Product, type ProductId } from '@/lib/db/schema/products';
+import { type TAddOptimistic } from '@/app/(app)/feedbacks/useOptimisticFeedbacks';
 
 const SaveButton = ({
   editing,

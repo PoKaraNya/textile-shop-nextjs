@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import { AlignRight } from 'lucide-react';
 import { defaultLinks } from '@/config/nav';
 
-export default function Navbar() {
+export function Navbar() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   return (

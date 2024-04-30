@@ -4,10 +4,9 @@ import { useOptimistic } from 'react';
 
 export type TAddOptimistic = (action: OptimisticAction<Category>) => void;
 
-export const useOptimisticCategories = (
+export function useOptimisticCategories(
   categories: CompleteCategory[],
-
-) => {
+) {
   const [optimisticCategories, addOptimisticCategory] = useOptimistic(
     categories,
     (
@@ -38,4 +37,4 @@ export const useOptimisticCategories = (
   );
 
   return { addOptimisticCategory, optimisticCategories };
-};
+}

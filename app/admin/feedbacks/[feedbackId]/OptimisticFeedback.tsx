@@ -6,7 +6,7 @@ import { type Feedback } from '@/lib/db/schema/feedbacks';
 import { cn } from '@/lib/utils';
 
 import { Button } from '@/components/ui/button';
-import Modal from '@/components/shared/Modal';
+import { Modal } from '@/components/shared/Modal';
 import FeedbackForm from '@/components/feedbacks/FeedbackForm';
 import { type Product, type ProductId } from '@/lib/db/schema/products';
 
@@ -16,7 +16,6 @@ export default function OptimisticFeedback({
   productId,
 }: {
   feedback: Feedback;
-
   products: Product[];
   productId?: ProductId
 }) {

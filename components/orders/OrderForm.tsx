@@ -7,7 +7,6 @@ import { toast } from 'sonner';
 import { useValidatedForm } from '@/lib/hooks/useValidatedForm';
 
 import { type Action, cn } from '@/lib/utils';
-import { type TAddOptimistic } from '@/app/(app)/orders/useOptimisticOrders';
 
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -16,6 +15,7 @@ import { useBackPath } from '@/components/shared/BackButton';
 
 import { insertOrderParams, type Order } from '@/lib/db/schema/orders';
 import { createOrderAction, deleteOrderAction, updateOrderAction } from '@/lib/actions/orders';
+import { TAddOptimistic } from '@/app/admin/orders/useOptimisticOrders';
 
 const SaveButton = ({
   editing,
@@ -41,7 +41,7 @@ const SaveButton = ({
   );
 };
 
-const OrderForm = ({
+export function OrderForm({
   order,
   openModal,
   closeModal,
@@ -53,7 +53,7 @@ const OrderForm = ({
   closeModal?: () => void;
   addOptimistic?: TAddOptimistic;
   postSuccess?: () => void;
-}) => {
+}) {
   const {
     errors, hasErrors, setErrors, handleChange,
   } = useValidatedForm<Order>(insertOrderParams);
@@ -248,6 +248,4 @@ const OrderForm = ({
       ) : null}
     </form>
   );
-};
-
-export default OrderForm;
+}

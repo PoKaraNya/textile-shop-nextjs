@@ -6,7 +6,8 @@ import {
 import Link from 'next/link';
 import { PropsWithChildren } from 'react';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import NavbarDropdown from '@/components/layout/NavbarDropdown';
+import { getIsLoggedIn } from '@/lib/auth/utils';
+import { NavbarDropdown } from '@/components/layout/NavbarDropdown';
 
 interface Props extends PropsWithChildren {}
 
@@ -23,21 +24,21 @@ const links = [
   },
 ] as const;
 
-async function AppLayout({ children }: Props) {
+export default async function AppLayout({ children }: Props) {
   const productsInCart = 3;
-  const isLoggedIn = false;
+  const isLoggedIn = await getIsLoggedIn();
+
   return (
     <>
-      <header
-        className="flex h-16 w-full items-center justify-between bg-white px-4 shadow-sm dark:bg-gray-950 sm:px-6 lg:px-8 gap-5"
-      >
+      <header className="flex h-16 w-full items-center justify-between bg-white px-4 shadow-sm dark:bg-gray-950 sm:px-6 lg:px-8 gap-5">
         <div className="flex items-center gap-4">
-          <Link className="flex items-center gap-2" href="/">
+          <Link className="w-28" href="/">
             Marina shop
           </Link>
           <nav className="hidden items-center gap-6 lg:flex">
             {links.map(({ href, label }) => (
               <Link
+                key={href}
                 className="text-sm font-medium text-gray-500 transition-colors hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
                 href={href}
               >
@@ -57,12 +58,10 @@ async function AppLayout({ children }: Props) {
         <div className="flex items-center gap-4">
           <Link
             className="relative flex h-10 w-10 items-center justify-center rounded-full text-gray-500 transition-colors hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
-            href="#"
+            href="/cart"
           >
             <ShoppingCartIcon className="h-6 w-6" />
-            <span
-              className="absolute top-0 right-0 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-xs text-white"
-            >
+            <span className="absolute top-0 right-0 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-xs text-white">
               {productsInCart}
             </span>
           </Link>
@@ -103,5 +102,3 @@ async function AppLayout({ children }: Props) {
     </>
   );
 }
-
-export default AppLayout;

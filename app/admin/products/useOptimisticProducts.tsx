@@ -1,13 +1,12 @@
-import { type Product, type CompleteProduct } from '@/lib/db/schema/products';
+import { type CompleteProduct, type Product } from '@/lib/db/schema/products';
 import { OptimisticAction } from '@/lib/utils';
 import { useOptimistic } from 'react';
 
 export type TAddOptimistic = (action: OptimisticAction<Product>) => void;
 
-export const useOptimisticProducts = (
+export function useOptimisticProducts(
   products: CompleteProduct[],
-
-) => {
+) {
   const [optimisticProducts, addOptimisticProduct] = useOptimistic(
     products,
     (
@@ -24,6 +23,7 @@ export const useOptimisticProducts = (
 
       switch (action.action) {
         case 'create':
+          // @ts-ignore
           return currentState.length === 0
             ? [optimisticProduct]
             : [...currentState, optimisticProduct];
@@ -38,4 +38,4 @@ export const useOptimisticProducts = (
   );
 
   return { addOptimisticProduct, optimisticProducts };
-};
+}

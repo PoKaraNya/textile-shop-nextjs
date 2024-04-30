@@ -1,5 +1,4 @@
-import { db } from '@/lib/db/index';
-import { getUserAuth } from '@/lib/auth/utils';
+import { db } from '@/lib/db';
 import { type FeedbackId, feedbackIdSchema } from '@/lib/db/schema/feedbacks';
 
 export const getFeedbacks = async () => {
@@ -8,7 +7,6 @@ export const getFeedbacks = async () => {
 };
 
 export const getFeedbackById = async (id: FeedbackId) => {
-  const { session } = await getUserAuth();
   const { id: feedbackId } = feedbackIdSchema.parse({ id });
   const f = await db.feedback.findFirst({
     where: { id: feedbackId },

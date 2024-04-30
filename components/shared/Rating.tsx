@@ -9,7 +9,7 @@ interface Props {
   clickHandler?: (value: number) => void
 }
 
-function Rating({ value, clickHandler }: Props) {
+export function Rating({ value, clickHandler }: Props) {
   const ratingRange = range(1, 6);
   return (
     <div className="grid gap-4">
@@ -29,5 +29,3 @@ function Rating({ value, clickHandler }: Props) {
     </div>
   );
 }
-
-export default Rating;

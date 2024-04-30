@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 
-import Loading from '@/app/loading';
-import FeedbackList from '@/components/feedbacks/FeedbackList';
+import Loading from '@/app/(app)/loading';
+import { FeedbackList } from '@/components/feedbacks/FeedbackList';
 import { getFeedbacks } from '@/lib/api/feedbacks/queries';
 import { getProducts } from '@/lib/api/products/queries';
 import { checkAuth } from '@/lib/auth/utils';

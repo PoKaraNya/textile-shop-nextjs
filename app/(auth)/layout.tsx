@@ -1,13 +1,18 @@
 import { getUserAuth } from '@/lib/auth/utils';
 import { redirect } from 'next/navigation';
+import { PropsWithChildren } from 'react';
 
-export default async function AuthLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+interface Props extends PropsWithChildren {}
+
+export default async function AuthLayout({ children }: Props) {
   const session = await getUserAuth();
-  if (session?.session) redirect('/admin/dashboard');
+  if (session?.session) {
+    redirect('/admin/dashboard');
+  }
 
-  return (<div className="bg-muted h-screen pt-8">{children}</div>);
+  return (
+    <div className="bg-muted h-screen pt-8">
+      {children}
+    </div>
+  );
 }

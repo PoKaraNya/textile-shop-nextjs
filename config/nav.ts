@@ -1,17 +1,16 @@
 import { Cog, Globe, HomeIcon } from 'lucide-react';
-// eslint-disable-next-line import/no-cycle
 import { SidebarLinkType } from '@/components/SidebarItems';
 
-type AdditionalLinks = {
+interface AdditionalLinks {
   title: string;
   links: SidebarLinkType[]
-};
+}
 
 export const defaultLinks: SidebarLinkType[] = [
   { href: '/admin/dashboard', title: 'Home', icon: HomeIcon },
   { href: '/admin/account', title: 'Account', icon: Cog },
   { href: '/admin/settings', title: 'Settings', icon: Cog },
-];
+] as const;
 
 export const additionalLinks: AdditionalLinks[] = [
   {
@@ -39,4 +38,4 @@ export const additionalLinks: AdditionalLinks[] = [
       },
     ],
   },
-];
+] as const;

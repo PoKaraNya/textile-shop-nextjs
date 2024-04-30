@@ -6,12 +6,12 @@ import { getProducts } from '@/lib/api/products/queries';
 import { checkAuth } from '@/lib/auth/utils';
 
 import { BackButton } from '@/components/shared/BackButton';
-import Loading from '@/app/loading';
+import Loading from '@/app/(app)/loading';
 import OptimisticFeedback from './OptimisticFeedback';
 
 export const revalidate = 0;
 
-const Feedback = async ({ id }: { id: string }) => {
+async function Feedback({ id }: { id: string }) {
   await checkAuth();
 
   const { feedback } = await getFeedbackById(id);
@@ -26,7 +26,7 @@ const Feedback = async ({ id }: { id: string }) => {
       </div>
     </Suspense>
   );
-};
+}
 
 export default async function FeedbackPage({
   params,

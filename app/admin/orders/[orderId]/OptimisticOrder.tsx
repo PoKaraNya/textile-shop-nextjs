@@ -6,8 +6,8 @@ import { type Order } from '@/lib/db/schema/orders';
 import { cn } from '@/lib/utils';
 
 import { Button } from '@/components/ui/button';
-import Modal from '@/components/shared/Modal';
-import OrderForm from '@/components/orders/OrderForm';
+import { Modal } from '@/components/shared/Modal';
+import { OrderForm } from '@/components/orders/OrderForm';
 
 export default function OptimisticOrder({
   order,

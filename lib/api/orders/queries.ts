@@ -1,4 +1,4 @@
-import { db } from '@/lib/db/index';
+import { db } from '@/lib/db';
 // eslint-disable-next-line import/no-cycle
 import { type OrderId, orderIdSchema } from '@/lib/db/schema/orders';
 

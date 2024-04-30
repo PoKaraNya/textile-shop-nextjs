@@ -1,12 +1,12 @@
 import { Suspense } from 'react';
 
-import Loading from '@/app/loading';
-import ProductList from '@/components/products/ProductList';
+import Loading from '@/app/(app)/loading';
+import { ProductList } from '@/components/products/ProductList';
 import { getProducts } from '@/lib/api/products/queries';
 
 export const revalidate = 0;
 
-const Products = async () => {
+async function Products() {
   const { products } = await getProducts();
 
   return (
@@ -14,7 +14,7 @@ const Products = async () => {
       <ProductList products={products} />
     </Suspense>
   );
-};
+}
 
 export default async function ProductsPage() {
   return (
