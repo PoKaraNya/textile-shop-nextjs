@@ -1,7 +1,7 @@
 'use server';
 
-import {revalidatePath} from 'next/cache';
-import {createOrder, deleteOrder, updateOrder,} from '@/lib/api/orders/mutations';
+import { revalidatePath } from 'next/cache';
+import { createOrder, deleteOrder, updateOrder } from '@/lib/api/orders/mutations';
 import {
   insertOrderParams,
   NewOrderParams,
@@ -13,7 +13,7 @@ import {
 import * as Sentry from '@sentry/nextjs';
 
 const handleErrors = (e: unknown) => {
-  Sentry.captureException(e)
+  Sentry.captureException(e);
   const errMsg = 'Error, please try again.';
   if (e instanceof Error) return e.message.length > 0 ? e.message : errMsg;
   if (e && typeof e === 'object' && 'error' in e) {

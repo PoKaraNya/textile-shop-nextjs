@@ -1,4 +1,4 @@
-import {db} from '@/lib/db';
+import { db } from '@/lib/db';
 import {
   FeedbackId,
   feedbackIdSchema,
@@ -15,7 +15,7 @@ export const createFeedback = async (feedback: NewFeedbackParams) => {
     const f = await db.feedback.create({ data: newFeedback });
     return { feedback: f };
   } catch (err) {
-    Sentry.captureException(err)
+    Sentry.captureException(err);
     const message = (err as Error).message ?? 'Error, please try again';
     console.error(message);
     throw new Error(message);
@@ -29,7 +29,7 @@ export const updateFeedback = async (id: FeedbackId, feedback: UpdateFeedbackPar
     const f = await db.feedback.update({ where: { id: feedbackId }, data: newFeedback });
     return { feedback: f };
   } catch (err) {
-    Sentry.captureException(err)
+    Sentry.captureException(err);
     const message = (err as Error).message ?? 'Error, please try again';
     console.error(message);
     throw new Error(message);
@@ -42,7 +42,7 @@ export const deleteFeedback = async (id: FeedbackId) => {
     const f = await db.feedback.delete({ where: { id: feedbackId } });
     return { feedback: f };
   } catch (err) {
-    Sentry.captureException(err)
+    Sentry.captureException(err);
     const message = (err as Error).message ?? 'Error, please try again';
     console.error(message);
     throw new Error(message);

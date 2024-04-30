@@ -1,23 +1,23 @@
 'use client';
 
-import {z} from 'zod';
+import { z } from 'zod';
 
-import {useState, useTransition} from 'react';
-import {useFormStatus} from 'react-dom';
-import {useRouter} from 'next/navigation';
-import {toast} from 'sonner';
-import {useValidatedForm} from '@/lib/hooks/useValidatedForm';
+import { useState, useTransition } from 'react';
+import { useFormStatus } from 'react-dom';
+import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
+import { useValidatedForm } from '@/lib/hooks/useValidatedForm';
 
-import {type Action, cn} from '@/lib/utils';
-import {type TAddOptimistic} from '@/app/admin/products/useOptimisticProducts';
+import { type Action, cn } from '@/lib/utils';
+import { type TAddOptimistic } from '@/app/admin/products/useOptimisticProducts';
 
-import {Input} from '@/components/ui/input';
-import {Button} from '@/components/ui/button';
-import {Label} from '@/components/ui/label';
-import {useBackPath} from '@/components/shared/BackButton';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { Label } from '@/components/ui/label';
+import { useBackPath } from '@/components/shared/BackButton';
 
-import {insertProductParams, type Product} from '@/lib/db/schema/products';
-import {createProductAction, deleteProductAction, updateProductAction} from '@/lib/actions/products';
+import { insertProductParams, type Product } from '@/lib/db/schema/products';
+import { createProductAction, deleteProductAction, updateProductAction } from '@/lib/actions/products';
 import * as Sentry from '@sentry/nextjs';
 
 function SaveButton({
@@ -127,7 +127,7 @@ export function ProductForm({
         );
       });
     } catch (e) {
-      Sentry.captureException(e)
+      Sentry.captureException(e);
       if (e instanceof z.ZodError) {
         setErrors(e.flatten().fieldErrors);
       }

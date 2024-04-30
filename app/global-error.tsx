@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import * as Sentry from "@sentry/nextjs";
-import Error from "next/error";
-import {useEffect} from "react";
+import * as Sentry from '@sentry/nextjs';
+import Error from 'next/error';
+import { useEffect } from 'react';
 
 interface Props {
-    error: Error & { digest?: string }
+  error: Error & { digest?: string }
 }
 
 export default function GlobalError({ error }: Props) {
@@ -14,9 +14,9 @@ export default function GlobalError({ error }: Props) {
   }, [error]);
 
   return (
-    <html>
+    <html lang="uk">
       <body>
-        <Error statusCode={500}/>
+        <Error statusCode={500} />
       </body>
     </html>
   );

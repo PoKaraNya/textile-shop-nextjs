@@ -1,4 +1,4 @@
-import {db} from '@/lib/db';
+import { db } from '@/lib/db';
 import {
   insertUserSchema,
   NewUserParams,
@@ -15,7 +15,7 @@ export const createUser = async (user: NewUserParams) => {
     const c = await db.user.create({ data: newUser });
     return { user: c };
   } catch (err) {
-    Sentry.captureException(err)
+    Sentry.captureException(err);
     const message = (err as Error).message ?? 'Error, please try again';
     console.error(message);
     throw new Error(message);
@@ -29,7 +29,7 @@ export const updateUser = async (id: UserId, user: UpdateUserParams) => {
     const c = await db.user.update({ where: { id: userId }, data: newUser });
     return { category: c };
   } catch (err) {
-    Sentry.captureException(err)
+    Sentry.captureException(err);
     const message = (err as Error).message ?? 'Error, please try again';
     console.error(message);
     throw new Error(message);
@@ -42,7 +42,7 @@ export const deleteUser = async (id: UserId) => {
     const c = await db.user.delete({ where: { id: userId } });
     return { user: c };
   } catch (err) {
-    Sentry.captureException(err)
+    Sentry.captureException(err);
     const message = (err as Error).message ?? 'Error, please try again';
     console.error(message);
     throw new Error(message);

@@ -1,7 +1,7 @@
-import {resend} from '@/lib/email';
-import {emailSchema} from '@/lib/email/utils';
-import {NextResponse} from 'next/server';
-import {EmailTemplate} from '@/components/emails';
+import { resend } from '@/lib/email';
+import { emailSchema } from '@/lib/email/utils';
+import { NextResponse } from 'next/server';
+import { EmailTemplate } from '@/components/emails';
 import * as Sentry from '@sentry/nextjs';
 
 export async function POST(request: Request) {

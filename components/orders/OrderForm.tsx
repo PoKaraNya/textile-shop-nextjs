@@ -1,23 +1,23 @@
 'use client';
 
-import {z} from 'zod';
+import { z } from 'zod';
 
-import {useState, useTransition} from 'react';
-import {useFormStatus} from 'react-dom';
-import {useRouter} from 'next/navigation';
-import {toast} from 'sonner';
-import {useValidatedForm} from '@/lib/hooks/useValidatedForm';
+import { useState, useTransition } from 'react';
+import { useFormStatus } from 'react-dom';
+import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
+import { useValidatedForm } from '@/lib/hooks/useValidatedForm';
 
-import {type Action, cn} from '@/lib/utils';
+import { type Action, cn } from '@/lib/utils';
 
-import {Input} from '@/components/ui/input';
-import {Button} from '@/components/ui/button';
-import {Label} from '@/components/ui/label';
-import {useBackPath} from '@/components/shared/BackButton';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { Label } from '@/components/ui/label';
+import { useBackPath } from '@/components/shared/BackButton';
 
-import {insertOrderParams, type Order} from '@/lib/db/schema/orders';
-import {createOrderAction, deleteOrderAction, updateOrderAction} from '@/lib/actions/orders';
-import {TAddOptimistic} from '@/app/admin/orders/useOptimisticOrders';
+import { insertOrderParams, type Order } from '@/lib/db/schema/orders';
+import { createOrderAction, deleteOrderAction, updateOrderAction } from '@/lib/actions/orders';
+import { TAddOptimistic } from '@/app/admin/orders/useOptimisticOrders';
 import * as Sentry from '@sentry/nextjs';
 
 const SaveButton = ({
@@ -126,7 +126,7 @@ export function OrderForm({
         );
       });
     } catch (e) {
-      Sentry.captureException(e)
+      Sentry.captureException(e);
       if (e instanceof z.ZodError) {
         setErrors(e.flatten().fieldErrors);
       }

@@ -1,9 +1,9 @@
-import {NextResponse} from 'next/server';
-import {revalidatePath} from 'next/cache';
-import {z} from 'zod';
+import { NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
+import { z } from 'zod';
 
-import {createProduct, deleteProduct, updateProduct,} from '@/lib/api/products/mutations';
-import {insertProductParams, productIdSchema, updateProductParams,} from '@/lib/db/schema/products';
+import { createProduct, deleteProduct, updateProduct } from '@/lib/api/products/mutations';
+import { insertProductParams, productIdSchema, updateProductParams } from '@/lib/db/schema/products';
 import * as Sentry from '@sentry/nextjs';
 
 export async function POST(req: Request) {
@@ -15,7 +15,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json(product, { status: 201 });
   } catch (err) {
-    Sentry.captureException(err)
+    Sentry.captureException(err);
     if (err instanceof z.ZodError) {
       return NextResponse.json({ error: err.issues }, { status: 400 });
     }
@@ -35,7 +35,7 @@ export async function PUT(req: Request) {
 
     return NextResponse.json(product, { status: 200 });
   } catch (err) {
-    Sentry.captureException(err)
+    Sentry.captureException(err);
     if (err instanceof z.ZodError) {
       return NextResponse.json({ error: err.issues }, { status: 400 });
     }
@@ -53,7 +53,7 @@ export async function DELETE(req: Request) {
 
     return NextResponse.json(product, { status: 200 });
   } catch (err) {
-    Sentry.captureException(err)
+    Sentry.captureException(err);
     if (err instanceof z.ZodError) {
       return NextResponse.json({ error: err.issues }, { status: 400 });
     }

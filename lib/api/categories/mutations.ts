@@ -1,4 +1,4 @@
-import {db} from '@/lib/db';
+import { db } from '@/lib/db';
 import {
   CategoryId,
   categoryIdSchema,
@@ -15,7 +15,7 @@ export const createCategory = async (category: NewCategoryParams) => {
     const c = await db.category.create({ data: newCategory });
     return { category: c };
   } catch (err) {
-    Sentry.captureException(err)
+    Sentry.captureException(err);
     const message = (err as Error).message ?? 'Error, please try again';
     console.error(message);
     throw new Error(message);
@@ -29,7 +29,7 @@ export const updateCategory = async (id: CategoryId, category: UpdateCategoryPar
     const c = await db.category.update({ where: { id: categoryId }, data: newCategory });
     return { category: c };
   } catch (err) {
-    Sentry.captureException(err)
+    Sentry.captureException(err);
     const message = (err as Error).message ?? 'Error, please try again';
     console.error(message);
     throw new Error(message);
@@ -42,7 +42,7 @@ export const deleteCategory = async (id: CategoryId) => {
     const c = await db.category.delete({ where: { id: categoryId } });
     return { category: c };
   } catch (err) {
-    Sentry.captureException(err)
+    Sentry.captureException(err);
     const message = (err as Error).message ?? 'Error, please try again';
     console.error(message);
     throw new Error(message);
