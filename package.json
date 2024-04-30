@@ -41,12 +41,14 @@
     "@radix-ui/react-slot": "^1.0.2",
     "@t3-oss/env-nextjs": "^0.10.1",
     "@tanstack/react-query": "^5.32.0",
+    "autoprefixer": "^10.4.19",
     "axios": "^1.6.8",
     "class-variance-authority": "^0.7.0",
     "classnames": "^2.5.1",
     "clsx": "^2.1.1",
     "env-cmd": "^10.1.0",
     "eslint-config-airbnb": "^19.0.4",
+    "husky": "^9.0.11",
     "lodash": "^4.17.21",
     "lucide-react": "^0.376.0",
     "next": "14.2.3",
@@ -59,9 +61,7 @@
     "sonner": "^1.4.41",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
-    "zod": "^3.23.5",
-    "autoprefixer": "^10.4.19",
-    "husky": "^9.0.11"
+    "zod": "^3.23.5"
   },
   "devDependencies": {
     "@faker-js/faker": "^8.4.1",
