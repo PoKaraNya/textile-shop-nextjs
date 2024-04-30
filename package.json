@@ -22,7 +22,7 @@
     "db:push": "env-cmd -f .env.dev prisma db push",
     "db:push:prod": "env-cmd -f .env.prod prisma db push",
     "db:sync": "pnpm run db:reset && pnpm run db:generate && pnpm run db:migrate && pnpm run db:push",
-    "prepare": "pnpm i husky",
+    "prepare": "npm i husky && husky && husky install",
     "test": "vitest",
     "test:watch": "jest --watch",
     "coverage": "jest --coverage --silent"
