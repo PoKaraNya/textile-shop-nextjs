@@ -1,5 +1,5 @@
-import * as z from 'zod';
-import { CompleteUser, relatedUserSchema } from './index';
+import * as z from "zod"
+import { CompleteUser, relatedUserSchema } from "./index"
 
 export const accountSchema = z.object({
   id: z.string(),
@@ -14,7 +14,7 @@ export const accountSchema = z.object({
   scope: z.string().nullish(),
   id_token: z.string().nullish(),
   session_state: z.string().nullish(),
-});
+})
 
 export interface CompleteAccount extends z.infer<typeof accountSchema> {
   user: CompleteUser
@@ -27,4 +27,4 @@ export interface CompleteAccount extends z.infer<typeof accountSchema> {
  */
 export const relatedAccountSchema: z.ZodSchema<CompleteAccount> = z.lazy(() => accountSchema.extend({
   user: relatedUserSchema,
-}));
+}))

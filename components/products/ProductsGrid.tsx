@@ -1,5 +1,5 @@
 import { Product } from '@prisma/client';
-import { ProductCard } from '@/components/products/ProductCard';
+import { ProductCard } from '@/components/products';
 
 interface Props {
   products: Product[]

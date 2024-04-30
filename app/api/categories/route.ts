@@ -3,11 +3,10 @@ import { z } from 'zod';
 
 import { deleteCategory, updateCategory } from '@/lib/api/categories/mutations';
 import { categoryIdSchema, updateCategoryParams } from '@/lib/db/schema/categories';
+import { getCategories } from '@/lib/api/categories/queries';
 
 export async function GET() {
-  // console.log(req);
-  // return NextResponse.json({ data: getCategories() }, { status: 200 });
-  return 2;
+  return NextResponse.json({ data: getCategories() }, { status: 200 });
 }
 
 // export async function POST(req: Request) {

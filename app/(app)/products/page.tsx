@@ -1,7 +1,7 @@
 import { getProducts } from '@/lib/api/products/queries';
 import { Suspense } from 'react';
 import Loading from '@/app/(app)/loading';
-import { ProductsGrid } from '@/components/products/ProductsGrid';
+import { ProductsGrid } from '@/components/products';
 
 export default async function ProductsPage() {
   const { products } = await getProducts();

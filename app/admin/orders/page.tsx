@@ -2,7 +2,7 @@ import { Suspense } from 'react';
 import { checkAuth } from '@/lib/auth/utils';
 import { getOrders } from '@/lib/api/orders/queries';
 import Loading from '@/app/(app)/loading';
-import { OrderList } from '@/components/orders/OrderList';
+import { OrderList } from '@/components/orders';
 
 export const revalidate = 0;
 

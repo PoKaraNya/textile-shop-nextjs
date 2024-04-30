@@ -13,6 +13,7 @@ export default function UpdateEmailCard({ email }: { email: string }) {
     event.preventDefault();
     const target = event.target as HTMLFormElement;
     const form = new FormData(target);
+    // eslint-disable-next-line @typescript-eslint/no-shadow
     const { email } = Object.fromEntries(form.entries()) as { email: string };
     if (email.length < 3) {
       toast.error('Email must be longer than 3 characters.');

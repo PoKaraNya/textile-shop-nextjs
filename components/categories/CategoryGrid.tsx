@@ -1,5 +1,5 @@
 import { Category } from '@/lib/db/schema/categories';
-import CategoryCard from '@/components/categories/CategoryCard';
+import { CategoryCard } from '@/components/categories';
 
 interface Props {
   categories: Category[]

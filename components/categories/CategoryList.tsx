@@ -6,12 +6,12 @@ import { usePathname } from 'next/navigation';
 
 import { cn } from '@/lib/utils';
 import { type Category, CompleteCategory } from '@/lib/db/schema/categories';
-import Modal from '@/components/shared/Modal';
+import { Modal } from '@/components/shared/Modal';
 
 import { useOptimisticCategories } from '@/app/admin/categories/useOptimisticCategories';
 import { Button } from '@/components/ui/button';
 import { PlusIcon } from 'lucide-react';
-import CategoryForm from './CategoryForm';
+import { CategoryForm } from './CategoryForm';
 
 type TOpenModal = (category?: Category) => void;
 
@@ -66,16 +66,13 @@ const EmptyState = ({ openModal }: { openModal: TOpenModal }) => (
     </div>
   </div>
 );
-export default function CategoryList({
+export function CategoryList({
   categories,
-
 }: {
   categories: CompleteCategory[];
-
 }) {
   const { optimisticCategories, addOptimisticCategory } = useOptimisticCategories(
     categories,
-
   );
   const [open, setOpen] = useState(false);
   const [activeCategory, setActiveCategory] = useState<Category | null>(null);

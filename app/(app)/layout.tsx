@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { PropsWithChildren } from 'react';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { getIsLoggedIn } from '@/lib/auth/utils';
-import { NavbarDropdown } from '@/components/layout/NavbarDropdown';
+import { NavbarDropdown } from '@/components/layout';
 
 interface Props extends PropsWithChildren {}
 

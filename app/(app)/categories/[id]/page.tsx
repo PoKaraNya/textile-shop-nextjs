@@ -2,7 +2,7 @@ import { getProductsByCategoryId } from '@/lib/api/categories/queries';
 import React, { Suspense } from 'react';
 import Loading from '@/app/(app)/loading';
 import { notFound } from 'next/navigation';
-import { ProductsGrid } from '@/components/products/ProductsGrid';
+import { ProductsGrid } from '@/components/products';
 
 interface Props {
   params: {

@@ -1,3 +1,5 @@
+'use client';
+
 import { z } from 'zod';
 
 import { useState, useTransition } from 'react';
@@ -20,15 +22,15 @@ import {
 import { type Feedback, insertFeedbackParams } from '@/lib/db/schema/feedbacks';
 import { createFeedbackAction, deleteFeedbackAction, updateFeedbackAction } from '@/lib/actions/feedbacks';
 import { type Product, type ProductId } from '@/lib/db/schema/products';
-import { type TAddOptimistic } from '@/app/(app)/feedbacks/useOptimisticFeedbacks';
+import { TAddOptimistic } from '@/app/admin/feedbacks/useOptimisticFeedbacks';
 
-const SaveButton = ({
+function SaveButton({
   editing,
   errors,
 }: {
   editing: Boolean;
   errors: boolean;
-}) => {
+}) {
   const { pending } = useFormStatus();
   const isCreating = pending && editing === false;
   const isUpdating = pending && editing === true;
@@ -44,9 +46,9 @@ const SaveButton = ({
         : `Creat${isCreating ? 'ing...' : 'e'}`}
     </Button>
   );
-};
+}
 
-const FeedbackForm = ({
+export function FeedbackForm({
   products,
   productId,
   feedback,
@@ -62,7 +64,7 @@ const FeedbackForm = ({
   closeModal?: () => void;
   addOptimistic?: TAddOptimistic;
   postSuccess?: () => void;
-}) => {
+}) {
   const {
     errors, hasErrors, setErrors, handleChange,
   } = useValidatedForm<Feedback>(insertFeedbackParams);
@@ -249,6 +251,4 @@ const FeedbackForm = ({
       ) : null}
     </form>
   );
-};
-
-export default FeedbackForm;
+}

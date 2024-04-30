@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils';
 
 import { Button } from '@/components/ui/button';
 import { Modal } from '@/components/shared/Modal';
-import CategoryForm from '@/components/categories/CategoryForm';
+import { CategoryForm } from '@/components/categories';
 
 export default function OptimisticCategory({
   category,

@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 
 import Loading from '@/app/(app)/loading';
-import { ProductList } from '@/components/products/ProductList';
+import { ProductList } from '@/components/products';
 import { getProducts } from '@/lib/api/products/queries';
 
 export const revalidate = 0;

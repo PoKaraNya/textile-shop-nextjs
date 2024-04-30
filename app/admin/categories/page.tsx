@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 import Loading from '@/app/(app)/loading';
-import CategoryList from '@/components/categories/CategoryList';
+import { CategoryList } from '@/components/categories';
 import { getCategories } from '@/lib/api/categories/queries';
 
 export const revalidate = 0;

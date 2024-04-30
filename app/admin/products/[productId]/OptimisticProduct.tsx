@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils';
 
 import { Button } from '@/components/ui/button';
 import { Modal } from '@/components/shared/Modal';
-import { ProductForm } from '@/components/products/ProductForm';
+import { ProductForm } from '@/components/products';
 
 export default function OptimisticProduct({
   product,

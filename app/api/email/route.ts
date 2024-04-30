@@ -1,7 +1,7 @@
-import { EmailTemplate } from '@/components/emails/FirstEmail';
 import { resend } from '@/lib/email';
 import { emailSchema } from '@/lib/email/utils';
 import { NextResponse } from 'next/server';
+import { EmailTemplate } from '@/components/emails';
 
 export async function POST(request: Request) {
   const body = await request.json();

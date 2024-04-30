@@ -10,7 +10,7 @@ import { Modal } from '@/components/shared/Modal';
 import { useOptimisticOrders } from '@/app/admin/orders/useOptimisticOrders';
 import { Button } from '@/components/ui/button';
 import { PlusIcon } from 'lucide-react';
-import { OrderForm } from '@/components/orders/OrderForm';
+import { OrderForm } from '@/components/orders';
 
 type TOpenModal = (order?: Order) => void;
 

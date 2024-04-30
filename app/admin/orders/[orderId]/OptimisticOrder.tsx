@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils';
 
 import { Button } from '@/components/ui/button';
 import { Modal } from '@/components/shared/Modal';
-import { OrderForm } from '@/components/orders/OrderForm';
+import { OrderForm } from '@/components/orders';
 
 export default function OptimisticOrder({
   order,

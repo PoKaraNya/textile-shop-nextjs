@@ -1,14 +1,5 @@
-import * as z from 'zod';
-import {
-  CompleteAccount,
-  CompleteFeedback,
-  CompleteOrder,
-  CompleteSession,
-  relatedAccountSchema,
-  relatedFeedbackSchema,
-  relatedOrderSchema,
-  relatedSessionSchema,
-} from './index';
+import * as z from "zod"
+import { CompleteAccount, relatedAccountSchema, CompleteSession, relatedSessionSchema, CompleteOrder, relatedOrderSchema, CompleteFeedback, relatedFeedbackSchema } from "./index"
 
 export const userSchema = z.object({
   id: z.string(),
@@ -20,7 +11,7 @@ export const userSchema = z.object({
   successPurchases: z.number().int().nullish(),
   failPurchases: z.number().int().nullish(),
   bonuses: z.number().int().nullish(),
-});
+})
 
 export interface CompleteUser extends z.infer<typeof userSchema> {
   accounts: CompleteAccount[]
@@ -39,4 +30,4 @@ export const relatedUserSchema: z.ZodSchema<CompleteUser> = z.lazy(() => userSch
   sessions: relatedSessionSchema.array(),
   orders: relatedOrderSchema.array(),
   feedbacks: relatedFeedbackSchema.array(),
-}));
+}))

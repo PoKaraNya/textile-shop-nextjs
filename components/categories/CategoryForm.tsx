@@ -1,3 +1,5 @@
+'use client';
+
 import { z } from 'zod';
 
 import { useState, useTransition } from 'react';
@@ -41,8 +43,7 @@ const SaveButton = ({
   );
 };
 
-const CategoryForm = ({
-
+export function CategoryForm({
   category,
   openModal,
   closeModal,
@@ -50,12 +51,11 @@ const CategoryForm = ({
   postSuccess,
 }: {
   category?: Category | null;
-
   openModal?: (category?: Category) => void;
   closeModal?: () => void;
   addOptimistic?: TAddOptimistic;
   postSuccess?: () => void;
-}) => {
+}) {
   const {
     errors, hasErrors, setErrors, handleChange,
   } = useValidatedForm<Category>(insertCategoryParams);
@@ -229,6 +229,4 @@ const CategoryForm = ({
       ) : null}
     </form>
   );
-};
-
-export default CategoryForm;
+}

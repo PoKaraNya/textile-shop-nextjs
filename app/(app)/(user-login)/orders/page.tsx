@@ -1,4 +1,4 @@
-export function OrdersPage() {
+export default function OrdersPage() {
   return (
     <div>
       Orders page

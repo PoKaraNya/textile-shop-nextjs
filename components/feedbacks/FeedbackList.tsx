@@ -11,7 +11,7 @@ import { type Product, type ProductId } from '@/lib/db/schema/products';
 import { useOptimisticFeedbacks } from '@/app/admin/feedbacks/useOptimisticFeedbacks';
 import { Button } from '@/components/ui/button';
 import { PlusIcon } from 'lucide-react';
-import FeedbackForm from './FeedbackForm';
+import { FeedbackForm } from './FeedbackForm';
 
 type TOpenModal = (feedback?: Feedback) => void;
 
