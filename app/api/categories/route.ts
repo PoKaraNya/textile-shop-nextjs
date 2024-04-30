@@ -7,7 +7,6 @@ import { categoryIdSchema, updateCategoryParams } from '@/lib/db/schema/categori
 export async function GET() {
   // console.log(req);
   // return NextResponse.json({ data: getCategories() }, { status: 200 });
-  console.log('asdfasdf');
   return 2;
 }
 

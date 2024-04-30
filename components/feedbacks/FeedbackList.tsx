@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 
 import { cn } from '@/lib/utils';
 import { CompleteFeedback, type Feedback } from '@/lib/db/schema/feedbacks';
-import Modal from '@/components/shared/Modal';
+import { Modal } from '@/components/shared/Modal';
 import { type Product, type ProductId } from '@/lib/db/schema/products';
 import { useOptimisticFeedbacks } from '@/app/admin/feedbacks/useOptimisticFeedbacks';
 import { Button } from '@/components/ui/button';
@@ -15,11 +15,11 @@ import FeedbackForm from './FeedbackForm';
 
 type TOpenModal = (feedback?: Feedback) => void;
 
-const FeedbackElement = ({
+function FeedbackElement({
   feedback,
 }: {
   feedback: CompleteFeedback;
-}) => {
+}) {
   const optimistic = feedback.id === 'optimistic';
   const deleting = feedback.id === 'delete';
   const mutating = optimistic || deleting;
@@ -46,7 +46,7 @@ const FeedbackElement = ({
       </Button>
     </li>
   );
-};
+}
 
 const EmptyState = ({ openModal }: { openModal: TOpenModal }) => (
   <div className="text-center">
@@ -67,7 +67,7 @@ const EmptyState = ({ openModal }: { openModal: TOpenModal }) => (
   </div>
 );
 
-export default function FeedbackList({
+export function FeedbackList({
   feedbacks,
   products,
   productId,

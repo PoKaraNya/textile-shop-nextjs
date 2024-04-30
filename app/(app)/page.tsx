@@ -1,68 +1,13 @@
 import Link from 'next/link';
-import { ModeToggle } from '@/components/ui/ThemeToggle';
-
-function MountainIcon(props: any) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="m8 3 4 8 5-5 5 15H2L8 3z" />
-    </svg>
-  );
-}
 
 export default function LandingPage() {
   return (
     <div className="flex flex-col min-h-screen">
-      <header className="px-4 lg:px-6 h-14 flex items-center">
-        <Link className="flex items-center justify-center" href="#">
-          <MountainIcon className="h-6 w-6" />
-          <ModeToggle />
-          <span className="sr-only">Acme Inc</span>
-        </Link>
-        <nav className="ml-auto flex gap-4 sm:gap-6">
-          <Link
-            className="text-sm font-medium hover:underline underline-offset-4"
-            href="/categories"
-          >
-            Categories
-          </Link>
-          <Link
-            className="text-sm font-medium hover:underline underline-offset-4"
-            href="/products"
-          >
-            Products
-          </Link>
-          <Link
-            className="text-sm font-medium hover:underline underline-offset-4"
-            href="#features"
-          >
-            Features
-          </Link>
-          <Link
-            className="text-sm font-medium hover:underline underline-offset-4"
-            href="/sign-in"
-          >
-            Sign In
-          </Link>
-        </nav>
-      </header>
       <main className="flex-1">
-        <section className="w-full py-6 sm:py-12 md:py-24 lg:py-32 xl:py-48">
+        <section className="w-full py-6 sm:py-8 md:py-20 lg:py-24 xl:py-32">
           <div className="container px-4 md:px-6">
             <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
-              <div
-                className="bg-neutral-100 dark:bg-neutral-800 mx-auto aspect-video overflow-hidden rounded-xl object-cover sm:w-full lg:order-last lg:aspect-square"
-              />
+              <div className="bg-neutral-100 dark:bg-neutral-800 mx-auto aspect-video overflow-hidden rounded-xl object-cover sm:w-full lg:order-last lg:aspect-square" />
               <div className="flex flex-col justify-center space-y-4">
                 <div className="space-y-2">
                   <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
@@ -99,9 +44,7 @@ export default function LandingPage() {
           <div className="container px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
-                <div
-                  className="inline-block rounded-lg bg-neutral-100 px-3 py-1 text-sm dark:bg-neutral-800"
-                >
+                <div className="inline-block rounded-lg bg-neutral-100 px-3 py-1 text-sm dark:bg-neutral-800">
                   Key Features
                 </div>
                 <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
@@ -115,9 +58,7 @@ export default function LandingPage() {
               </div>
             </div>
             <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-2 lg:gap-10">
-              <div
-                className="mx-auto aspect-video overflow-hidden bg-neutral-100 dark:bg-neutral-800 rounded-xl object-cover object-center sm:w-full lg:order-last"
-              />
+              <div className="mx-auto aspect-video overflow-hidden bg-neutral-100 dark:bg-neutral-800 rounded-xl object-cover object-center sm:w-full lg:order-last" />
               <div className="flex flex-col justify-center space-y-4">
                 <ul className="grid gap-6">
                   <li>

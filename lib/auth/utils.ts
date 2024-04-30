@@ -6,6 +6,7 @@ import { redirect } from 'next/navigation';
 import { env } from '@/lib/env.mjs';
 import GoogleProvider from 'next-auth/providers/google';
 import GitHubProvider from 'next-auth/providers/github';
+import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 
 declare module 'next-auth' {
   interface Session {
@@ -53,4 +54,22 @@ export const getUserAuth = async () => {
 export const checkAuth = async () => {
   const { session } = await getUserAuth();
   if (!session) redirect('/api/auth/signin');
+};
+
+export const signOut = async (router: AppRouterInstance) => {
+  const response = await fetch('/api/sign-out', {
+    method: 'POST',
+    redirect: 'manual',
+  });
+
+  if (response.status === 0) {
+    // redirected
+    // when using `redirect: "manual"`, response status 0 is returned
+    return router.refresh();
+  }
+};
+
+export const getIsLoggedIn = async () => {
+  const { session } = await getUserAuth();
+  return !!session;
 };

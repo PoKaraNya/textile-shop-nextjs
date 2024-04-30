@@ -10,7 +10,7 @@ import Modal from '@/components/shared/Modal';
 import { useOptimisticOrders } from '@/app/admin/orders/useOptimisticOrders';
 import { Button } from '@/components/ui/button';
 import { PlusIcon } from 'lucide-react';
-import OrderForm from './OrderForm';
+import { OrderForm } from '@/components/orders/OrderForm';
 
 type TOpenModal = (order?: Order) => void;
 
@@ -33,14 +33,14 @@ const EmptyState = ({ openModal }: { openModal: TOpenModal }) => (
   </div>
 );
 
-const OrderElement = ({
+function OrderElement({
   order,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   openModal,
 }: {
   order: CompleteOrder;
   openModal: TOpenModal;
-}) => {
+}) {
   const optimistic = order.id === 'optimistic';
   const deleting = order.id === 'delete';
   const mutating = optimistic || deleting;
@@ -67,9 +67,9 @@ const OrderElement = ({
       </Button>
     </li>
   );
-};
+}
 
-export default function OrderList({
+export function OrderList({
   orders,
 }: {
   orders: CompleteOrder[];

@@ -1,11 +1,9 @@
 import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
+  Dialog, DialogContent, DialogHeader, DialogTitle,
 } from '@/components/ui/dialog';
+import { Dispatch, ReactNode, SetStateAction } from 'react';
 
-export default function Modal({
+export function Modal({
   title,
   open,
   setOpen,
@@ -13,8 +11,8 @@ export default function Modal({
 }: {
   title?: string;
   open: boolean;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  children: React.ReactNode;
+  setOpen: Dispatch<SetStateAction<boolean>>;
+  children: ReactNode;
 }) {
   return (
     <Dialog onOpenChange={setOpen} open={open}>

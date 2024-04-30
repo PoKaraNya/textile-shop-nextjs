@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation';
 import { getCategoryById } from '@/lib/api/categories/queries';
 
 import { BackButton } from '@/components/shared/BackButton';
-import Loading from '@/app/loading';
+import Loading from '@/app/(app)/loading';
 import OptimisticCategory from './OptimisticCategory';
 
 export const revalidate = 0;

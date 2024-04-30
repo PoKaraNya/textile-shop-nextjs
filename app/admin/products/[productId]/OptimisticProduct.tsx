@@ -6,15 +6,13 @@ import { type Product } from '@/lib/db/schema/products';
 import { cn } from '@/lib/utils';
 
 import { Button } from '@/components/ui/button';
-import Modal from '@/components/shared/Modal';
-import ProductForm from '@/components/products/ProductForm';
+import { Modal } from '@/components/shared/Modal';
+import { ProductForm } from '@/components/products/ProductForm';
 
 export default function OptimisticProduct({
   product,
-
 }: {
   product: Product;
-
 }) {
   const [open, setOpen] = useState(false);
   const openModal = () => {

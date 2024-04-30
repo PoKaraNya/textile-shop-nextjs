@@ -6,15 +6,13 @@ import { type Category } from '@/lib/db/schema/categories';
 import { cn } from '@/lib/utils';
 
 import { Button } from '@/components/ui/button';
-import Modal from '@/components/shared/Modal';
+import { Modal } from '@/components/shared/Modal';
 import CategoryForm from '@/components/categories/CategoryForm';
 
 export default function OptimisticCategory({
   category,
-
 }: {
   category: Category;
-
 }) {
   const [open, setOpen] = useState(false);
   const openModal = () => {

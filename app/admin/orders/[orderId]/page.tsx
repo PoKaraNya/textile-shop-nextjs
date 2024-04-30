@@ -5,12 +5,12 @@ import { getOrderById } from '@/lib/api/orders/queries';
 import { checkAuth } from '@/lib/auth/utils';
 
 import { BackButton } from '@/components/shared/BackButton';
-import Loading from '@/app/loading';
+import Loading from '@/app/(app)/loading';
 import OptimisticOrder from './OptimisticOrder';
 
 export const revalidate = 0;
 
-const Order = async ({ id }: { id: string }) => {
+async function Order({ id }: { id: string }) {
   await checkAuth();
 
   const { order } = await getOrderById(id);
@@ -24,7 +24,7 @@ const Order = async ({ id }: { id: string }) => {
       </div>
     </Suspense>
   );
-};
+}
 
 export default async function OrderPage({
   params,

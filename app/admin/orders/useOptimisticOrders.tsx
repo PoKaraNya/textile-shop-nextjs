@@ -4,9 +4,9 @@ import { useOptimistic } from 'react';
 
 export type TAddOptimistic = (action: OptimisticAction<Order>) => void;
 
-export const useOptimisticOrders = (
+export function useOptimisticOrders(
   orders: CompleteOrder[],
-) => {
+) {
   const [optimisticOrders, addOptimisticOrder] = useOptimistic(
     orders,
     (
@@ -40,4 +40,4 @@ export const useOptimisticOrders = (
   );
 
   return { addOptimisticOrder, optimisticOrders };
-};
+}

@@ -1,14 +1,14 @@
 import { type Product } from '@/lib/db/schema/products';
-import { type Feedback, type CompleteFeedback } from '@/lib/db/schema/feedbacks';
+import { type CompleteFeedback, type Feedback } from '@/lib/db/schema/feedbacks';
 import { OptimisticAction } from '@/lib/utils';
 import { useOptimistic } from 'react';
 
 export type TAddOptimistic = (action: OptimisticAction<Feedback>) => void;
 
-export const useOptimisticFeedbacks = (
+export function useOptimisticFeedbacks(
   feedbacks: CompleteFeedback[],
   products: Product[],
-) => {
+) {
   const [optimisticFeedbacks, addOptimisticFeedback] = useOptimistic(
     feedbacks,
     (
@@ -29,10 +29,12 @@ export const useOptimisticFeedbacks = (
 
       switch (action.action) {
         case 'create':
+          // @ts-ignore
           return currentState.length === 0
             ? [optimisticFeedback]
             : [...currentState, optimisticFeedback];
         case 'update':
+          // @ts-ignore
           return currentState.map((item) => (item.id === data.id ? { ...item, ...optimisticFeedback } : item));
         case 'delete':
           return currentState.map((item) => (item.id === data.id ? { ...item, id: 'delete' } : item));
@@ -43,4 +45,4 @@ export const useOptimisticFeedbacks = (
   );
 
   return { addOptimisticFeedback, optimisticFeedbacks };
-};
+}

@@ -13,7 +13,7 @@ function UserDetails({ session }: { session: AuthSession }) {
   }
 
   return (
-    <Link href="/account">
+    <Link href="/admin/account">
       <div className="flex items-center justify-between w-full border-t border-border pt-4 px-2">
         <div className="text-muted-foreground">
           <p className="text-xs">{user.name ?? 'John Doe'}</p>
@@ -36,7 +36,7 @@ function UserDetails({ session }: { session: AuthSession }) {
   );
 }
 
-async function Sidebar() {
+export async function Sidebar() {
   const session = await getUserAuth();
   if (session.session === null) return null;
 
@@ -52,5 +52,3 @@ async function Sidebar() {
     </aside>
   );
 }
-
-export default Sidebar;

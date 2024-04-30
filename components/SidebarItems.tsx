@@ -6,7 +6,6 @@ import { usePathname } from 'next/navigation';
 import { LucideIcon } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
-// eslint-disable-next-line import/no-cycle
 import { additionalLinks, defaultLinks } from '@/config/nav';
 
 export interface SidebarLinkType {
@@ -73,7 +72,7 @@ function SidebarLinkGroup({
   );
 }
 
-function SidebarItems() {
+export function SidebarItems() {
   return (
     <>
       <SidebarLinkGroup links={defaultLinks} />
@@ -90,5 +89,3 @@ function SidebarItems() {
     </>
   );
 }
-
-export default SidebarItems;

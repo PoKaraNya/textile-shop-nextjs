@@ -5,7 +5,7 @@ import Link from 'next/link';
 interface Props {
   product: Product
 }
-function ProductCard({ product }: Props) {
+export function ProductCard({ product }: Props) {
   return (
     <div className="p-2 w-72 border rounded-xl">
       <Link href={`/products/${product.id}`}>
@@ -30,5 +30,3 @@ function ProductCard({ product }: Props) {
     </div>
   );
 }
-
-export default ProductCard;

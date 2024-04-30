@@ -9,7 +9,7 @@ interface Props {
   }[]
 }
 
-function RadioButtons({ value, label }: Props) {
+export function RadioButtons({ value, label }: Props) {
   const randString = Math.random().toString(36);
   return (
     <div className="grid gap-2">
@@ -30,5 +30,3 @@ function RadioButtons({ value, label }: Props) {
     </div>
   );
 }
-
-export default RadioButtons;

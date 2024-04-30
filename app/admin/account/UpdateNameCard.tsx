@@ -14,7 +14,6 @@ export default function UpdateNameCard({ name }: { name: string }) {
     event.preventDefault();
     const target = event.target as HTMLFormElement;
     const form = new FormData(target);
-    // eslint-disable-next-line @typescript-eslint/no-shadow
     const { name } = Object.fromEntries(form.entries()) as { name: string };
     if (name.length < 3) {
       toast.error('Name must be longer than 3 characters.');

@@ -1,12 +1,12 @@
 import { Suspense } from 'react';
 import { checkAuth } from '@/lib/auth/utils';
 import { getOrders } from '@/lib/api/orders/queries';
-import Loading from '@/app/loading';
-import OrderList from '@/components/orders/OrderList';
+import Loading from '@/app/(app)/loading';
+import { OrderList } from '@/components/orders/OrderList';
 
 export const revalidate = 0;
 
-const Orders = async () => {
+async function Orders() {
   await checkAuth();
 
   const { orders } = await getOrders();
@@ -15,7 +15,7 @@ const Orders = async () => {
       <OrderList orders={orders} />
     </Suspense>
   );
-};
+}
 
 export default async function OrdersPage() {
   return (

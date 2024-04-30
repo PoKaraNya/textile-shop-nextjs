@@ -17,13 +17,13 @@ import { useBackPath } from '@/components/shared/BackButton';
 import { insertProductParams, type Product } from '@/lib/db/schema/products';
 import { createProductAction, deleteProductAction, updateProductAction } from '@/lib/actions/products';
 
-const SaveButton = ({
+function SaveButton({
   editing,
   errors,
 }: {
   editing: Boolean;
   errors: boolean;
-}) => {
+}) {
   const { pending } = useFormStatus();
   const isCreating = pending && editing === false;
   const isUpdating = pending && editing === true;
@@ -39,9 +39,9 @@ const SaveButton = ({
         : `Creat${isCreating ? 'ing...' : 'e'}`}
     </Button>
   );
-};
+}
 
-const ProductForm = ({
+export function ProductForm({
 
   product,
   openModal,
@@ -55,7 +55,7 @@ const ProductForm = ({
   closeModal?: () => void;
   addOptimistic?: TAddOptimistic;
   postSuccess?: () => void;
-}) => {
+}) {
   const {
     errors, hasErrors, setErrors, handleChange,
   } = useValidatedForm<Product>(insertProductParams);
@@ -250,6 +250,4 @@ const ProductForm = ({
       ) : null}
     </form>
   );
-};
-
-export default ProductForm;
+}
