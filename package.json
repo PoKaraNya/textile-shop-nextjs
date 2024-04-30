@@ -64,7 +64,7 @@
     "tailwindcss-animate": "^1.0.7",
     "prisma": "^5.13.0",
     "zod": "^3.23.5",
-    "zod-prisma": "^0.5.4"
+    "zod-prisma": "^0.5.4",
     "@faker-js/faker": "^8.4.1",
     "@testing-library/jest-dom": "6.4.2",
     "@testing-library/react": "15.0.5",
