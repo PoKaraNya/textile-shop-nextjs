@@ -1,23 +1,24 @@
 'use client';
 
-import { z } from 'zod';
+import {z} from 'zod';
 
-import { useState, useTransition } from 'react';
-import { useFormStatus } from 'react-dom';
-import { useRouter } from 'next/navigation';
-import { toast } from 'sonner';
-import { useValidatedForm } from '@/lib/hooks/useValidatedForm';
+import {useState, useTransition} from 'react';
+import {useFormStatus} from 'react-dom';
+import {useRouter} from 'next/navigation';
+import {toast} from 'sonner';
+import {useValidatedForm} from '@/lib/hooks/useValidatedForm';
 
-import { type Action, cn } from '@/lib/utils';
+import {type Action, cn} from '@/lib/utils';
 
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
-import { useBackPath } from '@/components/shared/BackButton';
+import {Input} from '@/components/ui/input';
+import {Button} from '@/components/ui/button';
+import {Label} from '@/components/ui/label';
+import {useBackPath} from '@/components/shared/BackButton';
 
-import { type Category, insertCategoryParams } from '@/lib/db/schema/categories';
-import { createCategoryAction, deleteCategoryAction, updateCategoryAction } from '@/lib/actions/categories';
-import { TAddOptimistic } from '@/app/admin/categories/useOptimisticCategories';
+import {type Category, insertCategoryParams} from '@/lib/db/schema/categories';
+import {createCategoryAction, deleteCategoryAction, updateCategoryAction} from '@/lib/actions/categories';
+import {TAddOptimistic} from '@/app/admin/categories/useOptimisticCategories';
+import * as Sentry from '@sentry/nextjs';
 
 const SaveButton = ({
   editing,
@@ -124,6 +125,7 @@ export function CategoryForm({
         );
       });
     } catch (e) {
+      Sentry.captureException(e)
       if (e instanceof z.ZodError) {
         setErrors(e.flatten().fieldErrors);
       }

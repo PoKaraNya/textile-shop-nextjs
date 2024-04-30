@@ -1,21 +1,19 @@
 'use server';
 
-import { revalidatePath } from 'next/cache';
-import {
-  createCategory,
-  deleteCategory,
-  updateCategory,
-} from '@/lib/api/categories/mutations';
+import {revalidatePath} from 'next/cache';
+import {createCategory, deleteCategory, updateCategory,} from '@/lib/api/categories/mutations';
 import {
   CategoryId,
-  NewCategoryParams,
-  UpdateCategoryParams,
   categoryIdSchema,
   insertCategoryParams,
+  NewCategoryParams,
+  UpdateCategoryParams,
   updateCategoryParams,
 } from '@/lib/db/schema/categories';
+import * as Sentry from '@sentry/nextjs';
 
 const handleErrors = (e: unknown) => {
+  Sentry.captureException(e)
   const errMsg = 'Error, please try again.';
   if (e instanceof Error) return e.message.length > 0 ? e.message : errMsg;
   if (e && typeof e === 'object' && 'error' in e) {

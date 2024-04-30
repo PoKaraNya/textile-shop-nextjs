@@ -1,9 +1,10 @@
 'use client';
 
 import Link from 'next/link';
-import { emailSchema } from '@/lib/email/utils';
-import { useRef, useState } from 'react';
-import { z } from 'zod';
+import {emailSchema} from '@/lib/email/utils';
+import {useRef, useState} from 'react';
+import {z} from 'zod';
+import * as Sentry from '@sentry/nextjs';
 
 type FormInput = z.infer<typeof emailSchema>;
 type Errors = { [K in keyof FormInput]: string[] };
@@ -29,6 +30,7 @@ export default function Home() {
         },
       });
     } catch (err) {
+      Sentry.captureException(err)
       if (err instanceof z.ZodError) {
         setErrors(err.flatten().fieldErrors as Errors);
       }

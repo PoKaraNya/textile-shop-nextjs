@@ -1,21 +1,19 @@
 'use server';
 
-import { revalidatePath } from 'next/cache';
-import {
-  createFeedback,
-  deleteFeedback,
-  updateFeedback,
-} from '@/lib/api/feedbacks/mutations';
+import {revalidatePath} from 'next/cache';
+import {createFeedback, deleteFeedback, updateFeedback,} from '@/lib/api/feedbacks/mutations';
 import {
   FeedbackId,
-  NewFeedbackParams,
-  UpdateFeedbackParams,
   feedbackIdSchema,
   insertFeedbackParams,
+  NewFeedbackParams,
+  UpdateFeedbackParams,
   updateFeedbackParams,
 } from '@/lib/db/schema/feedbacks';
+import * as Sentry from '@sentry/nextjs';
 
 const handleErrors = (e: unknown) => {
+  Sentry.captureException(e)
   const errMsg = 'Error, please try again.';
   if (e instanceof Error) return e.message.length > 0 ? e.message : errMsg;
   if (e && typeof e === 'object' && 'error' in e) {

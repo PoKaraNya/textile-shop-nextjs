@@ -39,3 +39,5 @@ next-env.d.ts
 
 pnpm-lock.yaml
 package-lock.json
+# Sentry Config File
+.sentryclirc
