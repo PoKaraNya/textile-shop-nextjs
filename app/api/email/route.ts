@@ -2,6 +2,7 @@ import { resend } from '@/lib/email';
 import { emailSchema } from '@/lib/email/utils';
 import { NextResponse } from 'next/server';
 import { EmailTemplate } from '@/components/emails';
+import * as Sentry from '@sentry/nextjs';
 
 export async function POST(request: Request) {
   const body = await request.json();
@@ -17,6 +18,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json(data);
   } catch (error) {
+    Sentry.captureException(error);
     return NextResponse.json({ error });
   }
 }

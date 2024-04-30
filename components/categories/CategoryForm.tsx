@@ -18,6 +18,7 @@ import { useBackPath } from '@/components/shared/BackButton';
 import { type Category, insertCategoryParams } from '@/lib/db/schema/categories';
 import { createCategoryAction, deleteCategoryAction, updateCategoryAction } from '@/lib/actions/categories';
 import { TAddOptimistic } from '@/app/admin/categories/useOptimisticCategories';
+import * as Sentry from '@sentry/nextjs';
 
 const SaveButton = ({
   editing,
@@ -124,6 +125,7 @@ export function CategoryForm({
         );
       });
     } catch (e) {
+      Sentry.captureException(e);
       if (e instanceof z.ZodError) {
         setErrors(e.flatten().fieldErrors);
       }

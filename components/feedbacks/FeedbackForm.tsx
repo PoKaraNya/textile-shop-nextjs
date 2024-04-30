@@ -23,6 +23,7 @@ import { type Feedback, insertFeedbackParams } from '@/lib/db/schema/feedbacks';
 import { createFeedbackAction, deleteFeedbackAction, updateFeedbackAction } from '@/lib/actions/feedbacks';
 import { type Product, type ProductId } from '@/lib/db/schema/products';
 import { TAddOptimistic } from '@/app/admin/feedbacks/useOptimisticFeedbacks';
+import * as Sentry from '@sentry/nextjs';
 
 function SaveButton({
   editing,
@@ -134,6 +135,7 @@ export function FeedbackForm({
         );
       });
     } catch (e) {
+      Sentry.captureException(e);
       if (e instanceof z.ZodError) {
         setErrors(e.flatten().fieldErrors);
       }

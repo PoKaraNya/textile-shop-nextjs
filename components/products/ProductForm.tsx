@@ -18,6 +18,7 @@ import { useBackPath } from '@/components/shared/BackButton';
 
 import { insertProductParams, type Product } from '@/lib/db/schema/products';
 import { createProductAction, deleteProductAction, updateProductAction } from '@/lib/actions/products';
+import * as Sentry from '@sentry/nextjs';
 
 function SaveButton({
   editing,
@@ -126,6 +127,7 @@ export function ProductForm({
         );
       });
     } catch (e) {
+      Sentry.captureException(e);
       if (e instanceof z.ZodError) {
         setErrors(e.flatten().fieldErrors);
       }

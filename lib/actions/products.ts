@@ -1,21 +1,19 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
+import { createProduct, deleteProduct, updateProduct } from '@/lib/api/products/mutations';
 import {
-  createProduct,
-  deleteProduct,
-  updateProduct,
-} from '@/lib/api/products/mutations';
-import {
-  ProductId,
-  NewProductParams,
-  UpdateProductParams,
-  productIdSchema,
   insertProductParams,
+  NewProductParams,
+  ProductId,
+  productIdSchema,
+  UpdateProductParams,
   updateProductParams,
 } from '@/lib/db/schema/products';
+import * as Sentry from '@sentry/nextjs';
 
 const handleErrors = (e: unknown) => {
+  Sentry.captureException(e);
   const errMsg = 'Error, please try again.';
   if (e instanceof Error) return e.message.length > 0 ? e.message : errMsg;
   if (e && typeof e === 'object' && 'error' in e) {

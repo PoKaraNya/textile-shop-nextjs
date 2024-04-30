@@ -2,16 +2,9 @@ import { NextResponse } from 'next/server';
 import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 
-import {
-  createOrder,
-  deleteOrder,
-  updateOrder,
-} from '@/lib/api/orders/mutations';
-import {
-  orderIdSchema,
-  insertOrderParams,
-  updateOrderParams,
-} from '@/lib/db/schema/orders';
+import { createOrder, deleteOrder, updateOrder } from '@/lib/api/orders/mutations';
+import { insertOrderParams, orderIdSchema, updateOrderParams } from '@/lib/db/schema/orders';
+import * as Sentry from '@sentry/nextjs';
 
 export async function POST(req: Request) {
   try {
@@ -22,6 +15,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json(order, { status: 201 });
   } catch (err) {
+    Sentry.captureException(err);
     if (err instanceof z.ZodError) {
       return NextResponse.json({ error: err.issues }, { status: 400 });
     }
@@ -41,6 +35,7 @@ export async function PUT(req: Request) {
 
     return NextResponse.json(order, { status: 200 });
   } catch (err) {
+    Sentry.captureException(err);
     if (err instanceof z.ZodError) {
       return NextResponse.json({ error: err.issues }, { status: 400 });
     }
