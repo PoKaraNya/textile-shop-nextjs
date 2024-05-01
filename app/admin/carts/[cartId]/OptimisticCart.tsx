@@ -1,22 +1,22 @@
-"use client";
+'use client';
 
-import { useOptimistic, useState } from "react";
-import { TAddOptimistic } from "@/app/(app)/carts/useOptimisticCarts";
-import { type Cart } from "@/lib/db/schema/carts";
-import { cn } from "@/lib/utils";
+import { useOptimistic, useState } from 'react';
+import { TAddOptimistic } from '@/app/admin/carts/useOptimisticCarts';
+import { type Cart } from '@/lib/db/schema/carts';
+import { cn } from '@/lib/utils';
 
-import { Button } from "@/components/ui/button";
-import Modal from "@/components/shared/Modal";
-import CartForm from "@/components/carts/CartForm";
-import { type Product, type ProductId } from "@/lib/db/schema/products";
+import { Button } from '@/components/ui/button';
+import Modal from '@/components/shared/Modal';
+import CartForm from '@/components/carts/CartForm';
+import { type Product, type ProductId } from '@/lib/db/schema/products';
 
-export default function OptimisticCart({ 
+export default function OptimisticCart({
   cart,
   products,
-  productId 
-}: { 
-  cart: Cart; 
-  
+  productId,
+}: {
+  cart: Cart;
+
   products: Product[];
   productId?: ProductId
 }) {
@@ -26,8 +26,7 @@ export default function OptimisticCart({
   };
   const closeModal = () => setOpen(false);
   const [optimisticCart, setOptimisticCart] = useOptimistic(cart);
-  const updateCart: TAddOptimistic = (input) =>
-    setOptimisticCart({ ...input.data });
+  const updateCart: TAddOptimistic = (input) => setOptimisticCart({ ...input.data });
 
   return (
     <div className="m-4">
@@ -35,7 +34,7 @@ export default function OptimisticCart({
         <CartForm
           cart={optimisticCart}
           products={products}
-        productId={productId}
+          productId={productId}
           closeModal={closeModal}
           openModal={openModal}
           addOptimistic={updateCart}
@@ -49,8 +48,8 @@ export default function OptimisticCart({
       </div>
       <pre
         className={cn(
-          "bg-secondary p-4 rounded-lg break-all text-wrap",
-          optimisticCart.id === "optimistic" ? "animate-pulse" : "",
+          'bg-secondary p-4 rounded-lg break-all text-wrap',
+          optimisticCart.id === 'optimistic' ? 'animate-pulse' : '',
         )}
       >
         {JSON.stringify(optimisticCart, null, 2)}
