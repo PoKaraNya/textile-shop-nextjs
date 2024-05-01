@@ -63,3 +63,11 @@ export const timesAsync = async (count: number, cb: (index: number) => Promise<a
     await cb(i);
   }
 };
+
+
+export type Action = "create" | "update" | "delete";
+
+export type OptimisticAction<T> = {
+  action: Action;
+  data: T;
+};
