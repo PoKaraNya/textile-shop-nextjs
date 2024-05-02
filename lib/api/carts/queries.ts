@@ -8,6 +8,12 @@ export const getCarts = async () => {
   return { carts: c };
 };
 
+export const getCartsCount = async () => {
+  const { session } = await getUserAuth();
+  const c = await db.cart.findMany({ where: { userId: session?.user.id! }, include: { product: true } });
+  return c.length;
+};
+
 export const getCartById = async (id: CartId) => {
   const { session } = await getUserAuth();
   const { id: cartId } = cartIdSchema.parse({ id });
