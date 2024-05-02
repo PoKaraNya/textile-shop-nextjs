@@ -1,31 +1,31 @@
-"use server";
+'use server';
 
-import { revalidatePath } from "next/cache";
+import { revalidatePath } from 'next/cache';
 import {
-  createCart,
-  deleteCart,
-  updateCart,
-} from "@/lib/api/carts/mutations";
+  addProductCount, createCart, deleteCart, updateCart,
+} from '@/lib/api/carts/mutations';
 import {
   CartId,
-  NewCartParams,
-  UpdateCartParams,
   cartIdSchema,
   insertCartParams,
+  NewCartParams,
+  UpdateCartParams,
   updateCartParams,
-} from "@/lib/db/schema/carts";
+} from '@/lib/db/schema/carts';
 
 const handleErrors = (e: unknown) => {
-  const errMsg = "Error, please try again.";
-  if (e instanceof Error) return e.message.length > 0 ? e.message : errMsg;
-  if (e && typeof e === "object" && "error" in e) {
+  const errMsg = 'Error, please try again.';
+  if (e instanceof Error) {
+    return e.message.length > 0 ? e.message : errMsg;
+  }
+  if (e && typeof e === 'object' && 'error' in e) {
     const errAsStr = e.error as string;
     return errAsStr.length > 0 ? errAsStr : errMsg;
   }
   return errMsg;
 };
 
-const revalidateCarts = () => revalidatePath("/carts");
+const revalidateCarts = () => revalidatePath('/carts');
 
 export const createCartAction = async (input: NewCartParams) => {
   try {
@@ -53,6 +53,16 @@ export const deleteCartAction = async (input: CartId) => {
     await deleteCart(payload.id);
     revalidateCarts();
   } catch (e) {
+    return handleErrors(e);
+  }
+};
+
+export const addCartCountAction = async (id: CartId, number: number) => {
+  try {
+    await addProductCount(id, number);
+    revalidateCarts();
+  } catch (e) {
+    console.log({ e });
     return handleErrors(e);
   }
 };

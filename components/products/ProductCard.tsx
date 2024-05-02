@@ -1,11 +1,21 @@
+'use client';
+
 import { Product } from '@/lib/db/schema/products';
 import { IoCartOutline, IoHeartSharp } from 'react-icons/io5';
 import Link from 'next/link';
+import { useTransition } from 'react';
+import { createCartAction } from '@/lib/actions/carts';
 
 interface Props {
   product: Product
 }
 export function ProductCard({ product }: Props) {
+  const [, startTransition] = useTransition();
+  const addToCartHandle = () => {
+    startTransition(async () => {
+      await createCartAction({ productId: product.id, count: 1 });
+    });
+  };
   return (
     <div className="p-2 w-72 border rounded-xl">
       <Link href={`/products/${product.id}`}>
@@ -20,7 +30,11 @@ export function ProductCard({ product }: Props) {
           {product.price}
           ₴
         </div>
-        <button type="button" className="bg-orange-500 size-8 rounded-md flex justify-center items-center">
+        <button
+          type="button"
+          className="bg-orange-500 size-8 rounded-md flex justify-center items-center"
+          onClick={addToCartHandle}
+        >
           <IoCartOutline />
         </button>
         <button type="button" className="bg-orange-500 size-8 rounded-md flex justify-center items-center">

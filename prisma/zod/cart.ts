@@ -1,12 +1,14 @@
-import * as z from "zod"
-import { CompleteProduct, relatedProductSchema, CompleteUser, relatedUserSchema } from "./index"
+import * as z from 'zod';
+import {
+  CompleteProduct, CompleteUser, relatedProductSchema, relatedUserSchema,
+} from './index';
 
 export const cartSchema = z.object({
   id: z.string(),
   productId: z.string(),
   count: z.number().int(),
   userId: z.string(),
-})
+});
 
 export interface CompleteCart extends z.infer<typeof cartSchema> {
   product: CompleteProduct
@@ -21,4 +23,4 @@ export interface CompleteCart extends z.infer<typeof cartSchema> {
 export const relatedCartSchema: z.ZodSchema<CompleteCart> = z.lazy(() => cartSchema.extend({
   product: relatedProductSchema,
   user: relatedUserSchema,
-}))
+}));
