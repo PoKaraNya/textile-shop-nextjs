@@ -60,6 +60,7 @@ model User {
   orders           Order[]
   feedbacks        Feedback[]
   carts            Cart[]
+  favorites        Favorite[]
 
   @@index([id])
   @@index([email])
@@ -110,6 +111,7 @@ model Product {
   feedback      Feedback[]
   orderProducts OrderProducts[]
   Cart          Cart[]
+  Favorite      Favorite[]
 
   @@index([title])
 }
@@ -147,6 +149,18 @@ model Cart {
   count     Int
   userId    String
   user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model Favorite {
+  id        String   @id @default(cuid())
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId String
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([userId])
 }
