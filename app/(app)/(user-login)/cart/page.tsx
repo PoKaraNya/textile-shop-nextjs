@@ -3,7 +3,7 @@
 import { getCarts } from '@/lib/api/carts/queries';
 import { Suspense } from 'react';
 import Loading from '@/app/(app)/loading';
-import { ListContainer } from '@/components/layout';
+import { LayoutContainer, ListContainer } from '@/components/layout';
 import { CartListElement } from '@/components/cart/CartListElement';
 import { Separator } from '@/components/ui/separator';
 
@@ -13,19 +13,21 @@ export default async function CartPage() {
 
   return (
     <Suspense fallback={<Loading />}>
-      <ListContainer>
-        {carts.map((cart) => (
-          <>
-            <Separator />
-            <CartListElement value={cart} />
-          </>
-        ))}
-        <Separator />
-        Total:
-        {' '}
-        {total}
-        грн
-      </ListContainer>
+      <LayoutContainer>
+        <ListContainer>
+          {carts.map((cart) => (
+            <>
+              <Separator />
+              <CartListElement value={cart} />
+            </>
+          ))}
+          <Separator />
+          Total:
+          {' '}
+          {total}
+          грн
+        </ListContainer>
+      </LayoutContainer>
     </Suspense>
   );
 }

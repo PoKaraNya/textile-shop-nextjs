@@ -4,13 +4,27 @@ import { type CartId, cartIdSchema } from '@/lib/db/schema/carts';
 
 export const getCarts = async () => {
   const { session } = await getUserAuth();
-  const c = await db.cart.findMany({ where: { userId: session?.user.id! }, include: { product: true } });
+  const c = await db.cart.findMany({
+    where: {
+      userId: session?.user.id!,
+    },
+    include: {
+      product: true,
+    },
+  });
   return { carts: c };
 };
 
 export const getCartsCount = async () => {
   const { session } = await getUserAuth();
-  const c = await db.cart.findMany({ where: { userId: session?.user.id! }, include: { product: true } });
+  const c = await db.cart.findMany({
+    where: {
+      userId: session?.user.id!,
+    },
+    include: {
+      product: true,
+    },
+  });
   return c.length;
 };
 
