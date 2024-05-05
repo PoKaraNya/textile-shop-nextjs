@@ -21,7 +21,7 @@ export default function OptimisticCart({
   productId?: ProductId
 }) {
   const [open, setOpen] = useState(false);
-  const openModal = (_?: Cart) => {
+  const openModal = () => {
     setOpen(true);
   };
   const closeModal = () => setOpen(false);

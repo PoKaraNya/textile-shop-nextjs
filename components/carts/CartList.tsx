@@ -17,10 +17,8 @@ type TOpenModal = (cart?: Cart) => void;
 
 const CartElement = ({
   cart,
-  openModal,
 }: {
   cart: CompleteCart;
-  openModal: TOpenModal;
 }) => {
   const optimistic = cart.id === 'optimistic';
   const deleting = cart.id === 'delete';
@@ -119,7 +117,6 @@ export default function CartList({
             <CartElement
               cart={cart}
               key={cart.id}
-              openModal={openModal}
             />
           ))}
         </ul>
