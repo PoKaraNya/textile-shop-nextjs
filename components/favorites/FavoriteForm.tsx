@@ -1,3 +1,5 @@
+'use client';
+
 import { z } from 'zod';
 
 import { useState, useTransition } from 'react';
@@ -45,7 +47,7 @@ const SaveButton = ({
   );
 };
 
-const FavoriteForm = ({
+export const FavoriteForm = ({
   products,
   productId,
   favorite,
@@ -207,5 +209,3 @@ const FavoriteForm = ({
     </form>
   );
 };
-
-export default FavoriteForm;

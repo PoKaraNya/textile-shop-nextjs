@@ -1,4 +1,4 @@
-import { db } from '@/lib/db/index';
+import { db } from '@/lib/db';
 import { getUserAuth } from '@/lib/auth/utils';
 import { type FavoriteId, favoriteIdSchema } from '@/lib/db/schema/favorites';
 

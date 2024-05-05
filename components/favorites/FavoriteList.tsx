@@ -11,11 +11,11 @@ import { type Product, type ProductId } from '@/lib/db/schema/products';
 import { useOptimisticFavorites } from '@/app/admin/favorites/useOptimisticFavorites';
 import { Button } from '@/components/ui/button';
 import { PlusIcon } from 'lucide-react';
-import FavoriteForm from './FavoriteForm';
+import { FavoriteForm } from './FavoriteForm';
 
 type TOpenModal = (favorite?: Favorite) => void;
 
-const FavoriteElement = ({
+export const FavoriteElement = ({
   favorite,
 }: {
   favorite: CompleteFavorite;
