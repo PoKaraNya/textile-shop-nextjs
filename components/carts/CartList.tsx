@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 
 import { cn } from '@/lib/utils';
 import { type Cart, CompleteCart } from '@/lib/db/schema/carts';
-import Modal from '@/components/shared/Modal';
+import { Modal } from '@/components/shared/Modal';
 import { type Product, type ProductId } from '@/lib/db/schema/products';
 import { useOptimisticCarts } from '@/app/admin/carts/useOptimisticCarts';
 import { Button } from '@/components/ui/button';
@@ -15,66 +15,7 @@ import CartForm from './CartForm';
 
 type TOpenModal = (cart?: Cart) => void;
 
-export default function CartList({
-  carts,
-  products,
-  productId,
-}: {
-  carts: CompleteCart[];
-  products: Product[];
-  productId?: ProductId
-}) {
-  const { optimisticCarts, addOptimisticCart } = useOptimisticCarts(
-    carts,
-    products,
-  );
-  const [open, setOpen] = useState(false);
-  const [activeCart, setActiveCart] = useState<Cart | null>(null);
-  const openModal = (cart?: Cart) => {
-    setOpen(true);
-    cart ? setActiveCart(cart) : setActiveCart(null);
-  };
-  const closeModal = () => setOpen(false);
-
-  return (
-    <div>
-      <Modal
-        open={open}
-        setOpen={setOpen}
-        title={activeCart ? 'Edit Cart' : 'Create Cart'}
-      >
-        <CartForm
-          cart={activeCart}
-          addOptimistic={addOptimisticCart}
-          openModal={openModal}
-          closeModal={closeModal}
-          products={products}
-          productId={productId}
-        />
-      </Modal>
-      <div className="absolute right-0 top-0 ">
-        <Button onClick={() => openModal()} variant="outline">
-          +
-        </Button>
-      </div>
-      {optimisticCarts.length === 0 ? (
-        <EmptyState openModal={openModal} />
-      ) : (
-        <ul>
-          {optimisticCarts.map((cart) => (
-            <Cart
-              cart={cart}
-              key={cart.id}
-              openModal={openModal}
-            />
-          ))}
-        </ul>
-      )}
-    </div>
-  );
-}
-
-const Cart = ({
+const CartElement = ({
   cart,
   openModal,
 }: {
@@ -127,3 +68,62 @@ const EmptyState = ({ openModal }: { openModal: TOpenModal }) => (
     </div>
   </div>
 );
+
+export default function CartList({
+  carts,
+  products,
+  productId,
+}: {
+  carts: CompleteCart[];
+  products: Product[];
+  productId?: ProductId
+}) {
+  const { optimisticCarts, addOptimisticCart } = useOptimisticCarts(
+    carts,
+    products,
+  );
+  const [open, setOpen] = useState(false);
+  const [activeCart, setActiveCart] = useState<Cart | null>(null);
+  const openModal = (cart?: Cart) => {
+    setOpen(true);
+    cart ? setActiveCart(cart) : setActiveCart(null);
+  };
+  const closeModal = () => setOpen(false);
+
+  return (
+    <div>
+      <Modal
+        open={open}
+        setOpen={setOpen}
+        title={activeCart ? 'Edit Cart' : 'Create Cart'}
+      >
+        <CartForm
+          cart={activeCart}
+          addOptimistic={addOptimisticCart}
+          openModal={openModal}
+          closeModal={closeModal}
+          products={products}
+          productId={productId}
+        />
+      </Modal>
+      <div className="absolute right-0 top-0 ">
+        <Button onClick={() => openModal()} variant="outline">
+          +
+        </Button>
+      </div>
+      {optimisticCarts.length === 0 ? (
+        <EmptyState openModal={openModal} />
+      ) : (
+        <ul>
+          {optimisticCarts.map((cart) => (
+            <CartElement
+              cart={cart}
+              key={cart.id}
+              openModal={openModal}
+            />
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}

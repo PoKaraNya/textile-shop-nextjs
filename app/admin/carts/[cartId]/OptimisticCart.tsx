@@ -6,7 +6,7 @@ import { type Cart } from '@/lib/db/schema/carts';
 import { cn } from '@/lib/utils';
 
 import { Button } from '@/components/ui/button';
-import Modal from '@/components/shared/Modal';
+import { Modal } from '@/components/shared/Modal';
 import CartForm from '@/components/carts/CartForm';
 import { type Product, type ProductId } from '@/lib/db/schema/products';
 

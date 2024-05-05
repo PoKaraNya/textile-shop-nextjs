@@ -1,12 +1,24 @@
-import { Suspense } from "react";
+import { Suspense } from 'react';
 
-import Loading from "@/app/loading";
-import CartList from "@/components/carts/CartList";
-import { getCarts } from "@/lib/api/carts/queries";
-import { getProducts } from "@/lib/api/products/queries";
-import { checkAuth } from "@/lib/auth/utils";
+import CartList from '@/components/carts/CartList';
+import { getCarts } from '@/lib/api/carts/queries';
+import { getProducts } from '@/lib/api/products/queries';
+import { checkAuth } from '@/lib/auth/utils';
+import Loading from '@/app/(app)/loading';
 
 export const revalidate = 0;
+
+const Carts = async () => {
+  await checkAuth();
+
+  const { carts } = await getCarts();
+  const { products } = await getProducts();
+  return (
+    <Suspense fallback={<Loading />}>
+      <CartList carts={carts} products={products} />
+    </Suspense>
+  );
+};
 
 export default async function CartsPage() {
   return (
@@ -20,15 +32,3 @@ export default async function CartsPage() {
     </main>
   );
 }
-
-const Carts = async () => {
-  await checkAuth();
-
-  const { carts } = await getCarts();
-  const { products } = await getProducts();
-  return (
-    <Suspense fallback={<Loading />}>
-      <CartList carts={carts} products={products} />
-    </Suspense>
-  );
-};
