@@ -1,7 +1,33 @@
-export default function CartPage() {
+'use server';
+
+import { getCarts } from '@/lib/api/carts/queries';
+import { Suspense } from 'react';
+import Loading from '@/app/(app)/loading';
+import { LayoutContainer, ListContainer } from '@/components/layout';
+import { CartListElement } from '@/components/cart/CartListElement';
+import { Separator } from '@/components/ui/separator';
+
+export default async function CartPage() {
+  const { carts } = await getCarts();
+  const total = carts.reduce((acc, cur) => acc + cur.count * cur.product.price, 0);
+
   return (
-    <div>
-      Cart page
-    </div>
+    <Suspense fallback={<Loading />}>
+      <LayoutContainer>
+        <ListContainer>
+          {carts.map((cart) => (
+            <>
+              <Separator />
+              <CartListElement value={cart} />
+            </>
+          ))}
+          <Separator />
+          Total:
+          {' '}
+          {total}
+          грн
+        </ListContainer>
+      </LayoutContainer>
+    </Suspense>
   );
 }

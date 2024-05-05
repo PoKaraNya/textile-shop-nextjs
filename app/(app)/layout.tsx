@@ -8,6 +8,7 @@ import { PropsWithChildren } from 'react';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { getIsLoggedIn } from '@/lib/auth/utils';
 import { NavbarDropdown } from '@/components/layout';
+import { getCartsCount } from '@/lib/api/carts/queries';
 
 interface Props extends PropsWithChildren {}
 
@@ -25,7 +26,8 @@ const links = [
 ] as const;
 
 export default async function AppLayout({ children }: Props) {
-  const productsInCart = 3;
+  const productsInCart = await getCartsCount();
+
   const isLoggedIn = await getIsLoggedIn();
 
   return (

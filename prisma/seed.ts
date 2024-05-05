@@ -69,12 +69,26 @@ const generateFeedbacks = async (count: number) => {
   }));
 };
 
+const generateCarts = async (count: number) => {
+  const products = await db.product.findMany();
+  const users = await db.user.findMany();
+
+  return timesAsync(count, async () => db.cart.create({
+    data: {
+      count: getRandomNumber(10),
+      product: connectRandom(products),
+      user: connectRandom(users),
+    },
+  }));
+};
+
 export async function seedDb() {
   await generateUsers(50);
   await generateCategories(10);
   await generateProducts(100); // category
   await generateOrders(50); // user, products
   await generateFeedbacks(500); // user, products
+  await generateCarts(100); // user, products
 }
 
 seedDb()
