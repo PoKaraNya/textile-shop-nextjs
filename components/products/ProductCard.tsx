@@ -1,19 +1,40 @@
 'use client';
 
 import { Product } from '@/lib/db/schema/products';
-import { IoCartOutline, IoHeartSharp } from 'react-icons/io5';
+import {
+  IoCart, IoCartOutline, IoHeartOutline, IoHeartSharp,
+} from 'react-icons/io5';
 import Link from 'next/link';
 import { useTransition } from 'react';
 import { createCartAction } from '@/lib/actions/carts';
+import { createFavoriteAction, removeFromFavoriteAction } from '@/lib/actions/favorites';
+import { deleteProductFromCartAction } from '@/lib/actions/orders';
 
 interface Props {
   product: Product
+  inCart: boolean;
+  inFavorite: boolean;
 }
-export function ProductCard({ product }: Props) {
+export function ProductCard({ product, inCart, inFavorite }: Props) {
   const [, startTransition] = useTransition();
   const addToCartHandle = () => {
     startTransition(async () => {
       await createCartAction({ productId: product.id, count: 1 });
+    });
+  };
+  const removeFromCartHandler = async () => {
+    startTransition(async () => {
+      await deleteProductFromCartAction(product.id);
+    });
+  };
+  const addToFavoriteHandle = () => {
+    startTransition(async () => {
+      await createFavoriteAction({ productId: product.id });
+    });
+  };
+  const removeFromFavoriteHandler = async () => {
+    startTransition(async () => {
+      await removeFromFavoriteAction(product.id);
     });
   };
   return (
@@ -33,12 +54,16 @@ export function ProductCard({ product }: Props) {
         <button
           type="button"
           className="bg-orange-500 size-8 rounded-md flex justify-center items-center"
-          onClick={addToCartHandle}
+          onClick={inCart ? removeFromCartHandler : addToCartHandle}
         >
-          <IoCartOutline />
+          {inCart ? <IoCart /> : <IoCartOutline />}
         </button>
-        <button type="button" className="bg-orange-500 size-8 rounded-md flex justify-center items-center">
-          <IoHeartSharp />
+        <button
+          type="button"
+          className="bg-orange-500 size-8 rounded-md flex justify-center items-center"
+          onClick={inFavorite ? removeFromFavoriteHandler : addToFavoriteHandle}
+        >
+          {inFavorite ? <IoHeartSharp /> : <IoHeartOutline />}
         </button>
       </div>
     </div>

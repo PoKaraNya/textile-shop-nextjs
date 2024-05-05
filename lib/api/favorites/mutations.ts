@@ -8,6 +8,7 @@ import {
   updateFavoriteSchema,
 } from '@/lib/db/schema/favorites';
 import { getUserAuth } from '@/lib/auth/utils';
+import { ProductId, productIdSchema } from '@/lib/db/schema/products';
 
 export const createFavorite = async (favorite: NewFavoriteParams) => {
   const { session } = await getUserAuth();
@@ -40,7 +41,30 @@ export const deleteFavorite = async (id: FavoriteId) => {
   const { session } = await getUserAuth();
   const { id: favoriteId } = favoriteIdSchema.parse({ id });
   try {
-    const f = await db.favorite.delete({ where: { id: favoriteId, userId: session?.user.id! } });
+    const f = await db.favorite.delete({
+      where: {
+        id: favoriteId,
+        userId: session?.user.id!,
+      },
+    });
+    return { favorite: f };
+  } catch (err) {
+    const message = (err as Error).message ?? 'Error, please try again';
+    console.error(message);
+    throw new Error(message);
+  }
+};
+
+export const deleteFavoriteByProductId = async (id: ProductId) => {
+  const { session } = await getUserAuth();
+  const { id: productId } = productIdSchema.parse({ id });
+  try {
+    const f = await db.favorite.deleteMany({
+      where: {
+        productId,
+        userId: session?.user.id!,
+      },
+    });
     return { favorite: f };
   } catch (err) {
     const message = (err as Error).message ?? 'Error, please try again';

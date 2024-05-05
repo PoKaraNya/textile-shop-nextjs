@@ -2,18 +2,17 @@
 
 import { revalidatePath } from 'next/cache';
 import {
-  createFavorite,
-  deleteFavorite,
-  updateFavorite,
+  createFavorite, deleteFavorite, deleteFavoriteByProductId, updateFavorite,
 } from '@/lib/api/favorites/mutations';
 import {
   FavoriteId,
-  NewFavoriteParams,
-  UpdateFavoriteParams,
   favoriteIdSchema,
   insertFavoriteParams,
+  NewFavoriteParams,
+  UpdateFavoriteParams,
   updateFavoriteParams,
 } from '@/lib/db/schema/favorites';
+import { ProductId } from '@/lib/db/schema/products';
 
 const handleErrors = (e: unknown) => {
   const errMsg = 'Error, please try again.';
@@ -51,6 +50,16 @@ export const deleteFavoriteAction = async (input: FavoriteId) => {
   try {
     const payload = favoriteIdSchema.parse({ id: input });
     await deleteFavorite(payload.id);
+    revalidateFavorites();
+  } catch (e) {
+    return handleErrors(e);
+  }
+};
+
+export const removeFromFavoriteAction = async (input: ProductId) => {
+  try {
+    const payload = favoriteIdSchema.parse({ id: input });
+    await deleteFavoriteByProductId(payload.id);
     revalidateFavorites();
   } catch (e) {
     return handleErrors(e);
