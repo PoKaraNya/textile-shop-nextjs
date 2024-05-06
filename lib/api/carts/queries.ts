@@ -52,7 +52,7 @@ export const isProductInCart = async (id: ProductId) => {
   return !!c;
 };
 
-export const getProductIdsInCart = async () => {
+export const getProductIdsInCart = async (): Promise<ProductId[]> => {
   const { session } = await getUserAuth();
   const c = await db.cart.findMany({
     where: {

@@ -4,6 +4,7 @@ import { XIcon } from 'lucide-react';
 import { useTransition } from 'react';
 import { deleteFavoriteAction } from '@/lib/actions/favorites';
 import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 interface Props {
   value: {
@@ -46,10 +47,10 @@ export function FavoriteListElement({ value }: Props) {
         }}
         width={100}
       />
-      <div className="grid gap-1">
+      <Link href={`/products/${product.id}`} className="grid gap-1">
         <h3 className="font-semibold">{product?.title}</h3>
         <p className="text-sm text-gray-500 dark:text-gray-400">{product?.description}</p>
-      </div>
+      </Link>
       <div className="flex items-center gap-4">
         <div className="font-semibold">
           {product.price}

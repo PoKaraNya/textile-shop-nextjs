@@ -32,7 +32,7 @@ export const isProductInFavorite = async (id: ProductId) => {
   return !!c;
 };
 
-export const getProductIdsInFavorites = async () => {
+export const getProductIdsInFavorites = async (): Promise<ProductId[]> => {
   const { session } = await getUserAuth();
   const c = await db.favorite.findMany({
     where: {
