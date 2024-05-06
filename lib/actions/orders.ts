@@ -11,6 +11,8 @@ import {
   updateOrderParams,
 } from '@/lib/db/schema/orders';
 import * as Sentry from '@sentry/nextjs';
+import { ProductId } from '@/lib/db/schema/products';
+import { deleteCartByProductId } from '@/lib/api/carts/mutations';
 
 const handleErrors = (e: unknown) => {
   Sentry.captureException(e);
@@ -49,6 +51,16 @@ export const deleteOrderAction = async (input: OrderId) => {
   try {
     const payload = orderIdSchema.parse({ id: input });
     await deleteOrder(payload.id);
+    revalidateOrders();
+  } catch (e) {
+    return handleErrors(e);
+  }
+};
+
+export const deleteProductFromCartAction = async (input: ProductId) => {
+  try {
+    const payload = orderIdSchema.parse({ id: input });
+    await deleteCartByProductId(payload.id);
     revalidateOrders();
   } catch (e) {
     return handleErrors(e);

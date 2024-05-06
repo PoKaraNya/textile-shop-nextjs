@@ -41,6 +41,7 @@ export function NavbarDropdown({ isLoggedIn }: Props) {
           <>
             <DropdownMenuItem onClick={() => router.push('/profile')}>Profile</DropdownMenuItem>
             <DropdownMenuItem onClick={() => router.push('/orders')}>Orders</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => router.push('/favorites')}>Favorites</DropdownMenuItem>
             <DropdownMenuItem onClick={() => router.push('/settings')}>Settings</DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={() => signOut()}>

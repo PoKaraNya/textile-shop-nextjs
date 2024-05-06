@@ -5,11 +5,13 @@ import { Label } from '@/components/ui/label';
 import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from '@/components/ui/select';
-import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { range } from 'lodash';
 import { Rating } from '@/components/shared/Rating';
 import { RadioButtons } from '@/components/shared/RadioButtons';
+import { CartFavoriteBlock } from '@/components/products/CartFavoriteBlock';
+import { isProductInCart } from '@/lib/api/carts/queries';
+import { isProductInFavorite } from '@/lib/api/favorites/queries';
 
 interface Props {
   params: {
@@ -69,6 +71,9 @@ export default async function ProductIdPage({ params }: Props) {
 
   const rating = 3;
 
+  const inCart = await isProductInCart(product?.id!);
+  const inFavorite = await isProductInFavorite(product?.id!);
+
   return (
     <Suspense fallback={<Loading />}>
       <div className="grid md:grid-cols-2 items-start max-w-3xl px-4 mx-auto py-6 gap-6 md:gap-12">
@@ -99,7 +104,7 @@ export default async function ProductIdPage({ params }: Props) {
                 </SelectContent>
               </Select>
             </div>
-            <Button size="lg">Add to cart</Button>
+            <CartFavoriteBlock productId={product?.id!} inCart={inCart} inFavorite={inFavorite} />
           </form>
           <Separator className="border-gray-200 dark:border-gray-800" />
           <div className="grid gap-4 text-sm leading-loose">

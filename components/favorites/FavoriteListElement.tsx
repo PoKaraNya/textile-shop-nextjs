@@ -1,16 +1,15 @@
 'use client';
 
-import { MinusIcon, PlusIcon, XIcon } from 'lucide-react';
-import { addCartCountAction, deleteCartAction } from '@/lib/actions/carts';
+import { XIcon } from 'lucide-react';
 import { useTransition } from 'react';
+import { deleteFavoriteAction } from '@/lib/actions/favorites';
+import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { Button } from '../ui/button';
 
 interface Props {
   value: {
     id: string;
     productId: string;
-    count: number;
     userId: string;
     product: {
       id: string;
@@ -25,28 +24,13 @@ interface Props {
   },
 }
 
-export function CartListElement({ value }: Props) {
-  const { id, count, product } = value;
+export function FavoriteListElement({ value }: Props) {
+  const { id, product } = value;
   const [, startTransition] = useTransition();
-
-  const minusCountHandler = () => {
-    startTransition(async () => {
-      if (count <= 1) {
-        return;
-      }
-      await addCartCountAction(id, -1);
-    });
-  };
-
-  const addCountHandler = () => {
-    startTransition(async () => {
-      await addCartCountAction(id, 1);
-    });
-  };
 
   const removeCartHandler = () => {
     startTransition(async () => {
-      await deleteCartAction(id);
+      await deleteFavoriteAction(id);
     });
   };
 
@@ -68,25 +52,6 @@ export function CartListElement({ value }: Props) {
         <p className="text-sm text-gray-500 dark:text-gray-400">{product?.description}</p>
       </Link>
       <div className="flex items-center gap-4">
-        <div className="flex items-center gap-2">
-          <Button
-            size="icon"
-            variant="outline"
-            onClick={minusCountHandler}
-          >
-            <MinusIcon className="h-4 w-4" />
-          </Button>
-          <span className="text-base font-medium">
-            {count}
-          </span>
-          <Button
-            size="icon"
-            variant="outline"
-            onClick={addCountHandler}
-          >
-            <PlusIcon className="h-4 w-4" />
-          </Button>
-        </div>
         <div className="font-semibold">
           {product.price}
           грн
