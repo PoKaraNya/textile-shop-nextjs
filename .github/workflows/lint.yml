@@ -1,0 +1,22 @@
+name: CI
+on:
+  push:
+    branches: [ master, dev ]
+  pull_request:
+    branches: [ master, dev ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [ 20.11.1 ]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Node.js
+        uses: actions/checkout@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install modules
+        run: npm i -f
+      - name: Run linter
+        run: npm run lint
