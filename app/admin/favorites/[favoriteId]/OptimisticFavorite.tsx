@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils';
 
 import { Button } from '@/components/ui/button';
 import { Modal } from '@/components/shared/Modal';
-import FavoriteForm from '@/components/favorites/FavoriteForm';
+import { FavoriteForm } from '@/components/favorites/FavoriteForm';
 import { type Product, type ProductId } from '@/lib/db/schema/products';
 
 export default function OptimisticFavorite({

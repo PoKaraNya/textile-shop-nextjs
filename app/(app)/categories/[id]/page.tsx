@@ -3,6 +3,8 @@ import React, { Suspense } from 'react';
 import Loading from '@/app/(app)/loading';
 import { notFound } from 'next/navigation';
 import { ProductsGrid } from '@/components/products';
+import { getProductIdsInCart } from '@/lib/api/carts/queries';
+import { getProductIdsInFavorites } from '@/lib/api/favorites/queries';
 
 interface Props {
   params: {
@@ -15,6 +17,9 @@ export default async function CategoryIdPage({ params }: Props) {
   if (!category) {
     notFound();
   }
+
+  const productsInCart = await getProductIdsInCart();
+  const productsInFavorite = await getProductIdsInFavorites();
   return (
     <div>
       <Suspense fallback={<Loading />}>
@@ -35,7 +40,7 @@ export default async function CategoryIdPage({ params }: Props) {
             </h3>
           </div>
         </div>
-        <ProductsGrid products={category.products} />
+        <ProductsGrid productsInCart={productsInCart} productsInFavorite={productsInFavorite} products={category.products} />
       </Suspense>
     </div>
   );
