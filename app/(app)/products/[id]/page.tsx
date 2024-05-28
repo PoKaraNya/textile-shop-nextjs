@@ -88,7 +88,7 @@ export default async function ProductIdPage({ params }: Props) {
               {' грн'}
             </div>
           </div>
-          <form className="grid gap-4 md:gap-10">
+          <form className="bg grid gap-4 md:gap-10">
             <RadioButtons label="Color" value={colors} />
             <RadioButtons label="Size" value={sizes} />
             <div className="grid gap-2">

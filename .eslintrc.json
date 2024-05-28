@@ -45,6 +45,7 @@
     "jsx-a11y/control-has-associated-label": "off",
     "@next/next/no-img-element": "off",
     "jsx-a11y/img-redundant-alt": "off",
-    "linebreak-style": "off"
+    "linebreak-style": "off",
+    "global-require": "off"
   }
 }

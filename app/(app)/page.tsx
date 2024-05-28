@@ -1,4 +1,7 @@
 import Link from 'next/link';
+import Image from 'next/image';
+import pattern from '@/public/svg/pattern.svg';
+import { repeat } from 'lodash';
 
 export default function LandingPage() {
   return (

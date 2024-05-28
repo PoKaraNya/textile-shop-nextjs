@@ -1,9 +1,27 @@
 import { db } from '@/lib/db';
 // eslint-disable-next-line import/no-cycle
 import { type OrderId, orderIdSchema } from '@/lib/db/schema/orders';
+import { getUserAuth } from '@/lib/auth/utils';
+
+// export const getOrders = async () => {
+//   const o = await db.order.findMany({});
+//   return { orders: o };
+// };
 
 export const getOrders = async () => {
-  const o = await db.order.findMany({});
+  const { session } = await getUserAuth();
+  const o = await db.order.findMany({
+    where: {
+      userId: session?.user.id!,
+    },
+    include: {
+      orderProducts: {
+        include: {
+          product: true,
+        },
+      },
+    },
+  });
   return { orders: o };
 };
 

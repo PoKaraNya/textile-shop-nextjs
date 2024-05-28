@@ -9,6 +9,7 @@ import { useTransition } from 'react';
 import { createCartAction } from '@/lib/actions/carts';
 import { createFavoriteAction, removeFromFavoriteAction } from '@/lib/actions/favorites';
 import { deleteProductFromCartAction } from '@/lib/actions/orders';
+import classNames from 'classnames';
 
 interface Props {
   product: Product
@@ -47,20 +48,26 @@ export function ProductCard({ product, inCart, inFavorite }: Props) {
       </Link>
       <div className="flex gap-2 mt-1 text-white">
 
-        <div className="bg-orange-500 w-48 h-8 flex justify-center items-center rounded-md">
+        <div className="bg-app w-48 h-8 flex justify-center items-center rounded-md">
           {product.price}
           ₴
         </div>
         <button
           type="button"
-          className="bg-orange-500 size-8 rounded-md flex justify-center items-center"
+          className={classNames(
+            'bg-app size-8 rounded-md flex justify-center items-center',
+            inCart ? 'bg-app-secondary' : 'bg-app',
+          )}
           onClick={inCart ? removeFromCartHandler : addToCartHandle}
         >
           {inCart ? <IoCart /> : <IoCartOutline />}
         </button>
         <button
           type="button"
-          className="bg-orange-500 size-8 rounded-md flex justify-center items-center"
+          className={classNames(
+            'bg-app size-8 rounded-md flex justify-center items-center duration-500',
+            inFavorite ? 'bg-app-secondary' : 'bg-app',
+          )}
           onClick={inFavorite ? removeFromFavoriteHandler : addToFavoriteHandle}
         >
           {inFavorite ? <IoHeartSharp /> : <IoHeartOutline />}

@@ -22,6 +22,7 @@ export type AuthSession = {
       id: string;
       name?: string;
       email?: string;
+      role?: string;
     };
   } | null;
 };
@@ -31,6 +32,8 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     session: ({ session, user }) => {
       session.user.id = user.id;
+      // @ts-ignore
+      session.user.role = user.role;
       return session;
     },
   },
@@ -53,7 +56,11 @@ export const getUserAuth = async () => {
 
 export const checkAuth = async () => {
   const { session } = await getUserAuth();
+  console.log(session);
   if (!session) redirect('/api/auth/signin');
+  if (session?.user.role !== 'ADMIN') {
+    throw new Error('You need to be an admin');
+  }
 };
 
 export const signOut = async (router: AppRouterInstance) => {

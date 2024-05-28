@@ -1,4 +1,5 @@
 import * as z from "zod"
+import { UserRole } from "@prisma/client"
 import { CompleteAccount, relatedAccountSchema, CompleteSession, relatedSessionSchema, CompleteOrder, relatedOrderSchema, CompleteFeedback, relatedFeedbackSchema, CompleteCart, relatedCartSchema, CompleteFavorite, relatedFavoriteSchema } from "./index"
 
 export const userSchema = z.object({
@@ -11,6 +12,7 @@ export const userSchema = z.object({
   successPurchases: z.number().int().nullish(),
   failPurchases: z.number().int().nullish(),
   bonuses: z.number().int().nullish(),
+  role: z.nativeEnum(UserRole),
 })
 
 export interface CompleteUser extends z.infer<typeof userSchema> {
