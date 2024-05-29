@@ -34,6 +34,9 @@ export const isProductInFavorite = async (id: ProductId) => {
 
 export const getProductIdsInFavorites = async (): Promise<ProductId[]> => {
   const { session } = await getUserAuth();
+  if (!session) {
+    return [];
+  }
   const c = await db.favorite.findMany({
     where: {
       userId: session?.user.id!,

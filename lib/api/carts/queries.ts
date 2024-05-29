@@ -19,6 +19,9 @@ export const getCarts = async () => {
 
 export const getCartsCount = async () => {
   const { session } = await getUserAuth();
+  if (!session) {
+    return 0;
+  }
   const c = await db.cart.findMany({
     where: {
       userId: session?.user.id!,
@@ -54,6 +57,9 @@ export const isProductInCart = async (id: ProductId) => {
 
 export const getProductIdsInCart = async (): Promise<ProductId[]> => {
   const { session } = await getUserAuth();
+  if (!session) {
+    return [];
+  }
   const c = await db.cart.findMany({
     where: {
       userId: session?.user.id!,

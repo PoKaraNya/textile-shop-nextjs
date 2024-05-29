@@ -10,7 +10,7 @@ interface Props {
 
 export function ProductsGrid({ products, productsInCart, productsInFavorite }: Props) {
   return (
-    <div className="flex flex-wrap gap-5 justify-around">
+    <div className="flex flex-wrap gap-5 justify-around pt-3 pb-3">
       {products.map((product: Product) => (
         <ProductCard
           inCart={productsInCart.includes(product.id)}

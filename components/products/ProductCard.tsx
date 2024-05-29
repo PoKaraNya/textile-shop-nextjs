@@ -10,6 +10,7 @@ import { createCartAction } from '@/lib/actions/carts';
 import { createFavoriteAction, removeFromFavoriteAction } from '@/lib/actions/favorites';
 import { deleteProductFromCartAction } from '@/lib/actions/orders';
 import classNames from 'classnames';
+import { getUserAuth } from '@/lib/auth/utils';
 
 interface Props {
   product: Product
@@ -38,8 +39,9 @@ export function ProductCard({ product, inCart, inFavorite }: Props) {
       await removeFromFavoriteAction(product.id);
     });
   };
+
   return (
-    <div className="p-2 w-72 border rounded-xl">
+    <div className="p-4 w-72 rounded-xl border border-app">
       <Link href={`/products/${product.id}`}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img className="w-72 h-40 object-cover rounded-lg" src={product.photo ?? ''} alt="" />

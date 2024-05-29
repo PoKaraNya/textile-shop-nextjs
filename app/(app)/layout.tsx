@@ -6,11 +6,10 @@ import {
 import Link from 'next/link';
 import { PropsWithChildren } from 'react';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { getIsLoggedIn, getUserAuth } from '@/lib/auth/utils';
+import { getUserAuth } from '@/lib/auth/utils';
 import { NavbarDropdown } from '@/components/layout';
 import { getCartsCount } from '@/lib/api/carts/queries';
 import logo from '@/public/svg/logo.svg';
-import logo_text from '@/public/svg/logo_text.svg';
 import Image from 'next/image';
 import { UserRole } from '@/lib/types';
 

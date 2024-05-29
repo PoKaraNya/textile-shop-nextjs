@@ -14,8 +14,7 @@ export default async function OrdersPage() {
       <LayoutContainer>
         <ListContainer>
           <Separator />
-          <OrderList orders={orders} />
-          <Separator />
+
           Total:
           {' '}
           {total}
