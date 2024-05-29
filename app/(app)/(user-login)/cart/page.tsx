@@ -6,6 +6,7 @@ import Loading from '@/app/(app)/loading';
 import { LayoutContainer, ListContainer } from '@/components/layout';
 import { CartListElement } from '@/components/cart/CartListElement';
 import { Separator } from '@/components/ui/separator';
+import { ConfirmOrderButton } from '@/components/carts/ConfirmOrderButton';
 
 export default async function CartPage() {
   const { carts } = await getCarts();
@@ -26,6 +27,7 @@ export default async function CartPage() {
           {' '}
           {total}
           грн
+          <ConfirmOrderButton />
         </ListContainer>
       </LayoutContainer>
     </Suspense>

@@ -13,6 +13,9 @@ export const getCarts = async () => {
     include: {
       product: true,
     },
+    orderBy: {
+      id: 'asc',
+    },
   });
   return { carts: c };
 };

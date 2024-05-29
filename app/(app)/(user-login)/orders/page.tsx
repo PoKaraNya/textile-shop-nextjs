@@ -3,7 +3,6 @@ import { Suspense } from 'react';
 import { LayoutContainer, ListContainer } from '@/components/layout';
 import { getOrders } from '@/lib/api/orders/queries';
 import { Separator } from '@/components/ui/separator';
-import { OrderList } from '@/components/orders';
 
 export default async function OrdersPage() {
   const { orders } = await getOrders();

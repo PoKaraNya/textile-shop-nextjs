@@ -32,3 +32,20 @@ export const getOrderById = async (id: OrderId) => {
   });
   return { order: o };
 };
+
+export const getUserOrders = async () => {
+  const { session } = await getUserAuth();
+  const o = await db.order.findMany({
+    where: {
+      userId: session?.user.id!,
+    },
+    include: {
+      orderProducts: {
+        include: {
+          product: true,
+        },
+      },
+    },
+  });
+  return { orders: o };
+};

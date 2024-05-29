@@ -1,7 +1,9 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
-import { createOrder, deleteOrder, updateOrder } from '@/lib/api/orders/mutations';
+import {
+  createOrder, createUserOrder, deleteOrder, updateOrder,
+} from '@/lib/api/orders/mutations';
 import {
   insertOrderParams,
   NewOrderParams,
@@ -31,6 +33,15 @@ export const createOrderAction = async (input: NewOrderParams) => {
   try {
     const payload = insertOrderParams.parse(input);
     await createOrder(payload);
+    revalidateOrders();
+  } catch (e) {
+    return handleErrors(e);
+  }
+};
+
+export const createUserOrderAction = async (notes: string) => {
+  try {
+    await createUserOrder(notes);
     revalidateOrders();
   } catch (e) {
     return handleErrors(e);
