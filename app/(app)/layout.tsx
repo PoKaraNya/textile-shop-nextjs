@@ -47,7 +47,7 @@ export default async function AppLayout({ children }: Props) {
             {links.map(({ href, label }) => (
               <Link
                 key={href}
-                className="text-sm font-medium text-gray-500 transition-colors hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
+                className="font-impact text-app transition-colors hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
                 href={href}
               >
                 {label}
@@ -56,9 +56,9 @@ export default async function AppLayout({ children }: Props) {
           </nav>
         </div>
         <div className="relative flex w-full max-w-md items-center lg:max-w-none">
-          <SearchIcon className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
+          <SearchIcon className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-app-secondary" />
           <Input
-            className="h-10 w-full rounded-md border border-gray-300 bg-gray-100 pl-10 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary dark:border-gray-700 dark:bg-gray-800 dark:text-gray-50"
+            className="h-10 w-full rounded-md border border-t-bg-light bg-bg-light pl-10 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary dark:border-gray-700 dark:bg-gray-800 dark:text-gray-50"
             placeholder="Search products..."
             type="search"
           />
@@ -77,7 +77,7 @@ export default async function AppLayout({ children }: Props) {
                 href="/cart"
               >
                 <ShoppingCartIcon className="h-6 w-6" />
-                <span className="absolute top-0 right-0 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-xs text-white">
+                <span className="absolute top-0 right-0 flex h-4 w-4 items-center justify-center rounded-full bg-app-secondary text-xs text-white">
                   {productsInCart}
                 </span>
               </Link>

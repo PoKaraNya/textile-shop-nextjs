@@ -36,18 +36,18 @@ export function NavbarDropdown({ isLoggedIn }: Props) {
           <span className="sr-only">Toggle user menu</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
+      <DropdownMenuContent className="bg-bg-dark border-app" align="end">
         {isLoggedIn ? (
           <>
             <DropdownMenuItem onClick={() => router.push('/profile')}>Profile</DropdownMenuItem>
             <DropdownMenuItem onClick={() => router.push('/orders')}>Orders</DropdownMenuItem>
             <DropdownMenuItem onClick={() => router.push('/favorites')}>Favorites</DropdownMenuItem>
             <DropdownMenuItem onClick={() => router.push('/settings')}>Settings</DropdownMenuItem>
-            <DropdownMenuSeparator />
+            <DropdownMenuSeparator className="bg-app" />
             <DropdownMenuItem onClick={() => signOut()}>
               Logout
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => router.push('/admin/dashboard')}>Dashboard</DropdownMenuItem>
+            {/* <DropdownMenuItem onClick={() => router.push('/admin/dashboard')}>Dashboard</DropdownMenuItem> */}
           </>
         ) : (
           <DropdownMenuItem onClick={() => signIn(undefined, { callbackUrl: '/' })}>

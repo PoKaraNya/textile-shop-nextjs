@@ -68,8 +68,9 @@ export function CartListElement({ value }: Props) {
         <p className="text-sm text-gray-500 dark:text-gray-400">{product?.description}</p>
       </Link>
       <div className="flex items-center gap-4">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 ">
           <Button
+            className="bg-bg-dark"
             size="icon"
             variant="outline"
             onClick={minusCountHandler}
@@ -80,6 +81,7 @@ export function CartListElement({ value }: Props) {
             {count}
           </span>
           <Button
+            className="bg-bg-dark"
             size="icon"
             variant="outline"
             onClick={addCountHandler}

@@ -64,6 +64,7 @@
     --input: 0 0% 14.9%;
     --ring: 0 0% 83.1%;
   }
+
 }
  
 @layer base {
@@ -73,8 +74,32 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  .pattern-background {
+    width: 100%;
+    height: 35vh;
+    background-image: url("../public/svg/pattern.svg");
+    background-repeat: repeat;
+  }
+
+  .pattern-container {
+    position: relative;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  .pattern-border {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 30px;
+    background-size: auto 30px;
+    background-image: url("../public/svg/pattern-border.svg");
+    background-repeat: repeat-y;
+  }
 }
 
 html {
   @apply bg-bg-light
 }
+
