@@ -68,6 +68,25 @@ export const deleteCart = async (id: CartId) => {
   }
 };
 
+export const clearCartByUserId = async () => {
+  const { session } = await getUserAuth();
+  if (!session) {
+    return 0;
+  }
+  try {
+    const c = await db.cart.deleteMany({
+      where: {
+        userId: session?.user.id!,
+      },
+    });
+    return { cart: c };
+  } catch (err) {
+    const message = (err as Error).message ?? 'Error, please try again';
+    console.error(message);
+    throw new Error(message);
+  }
+};
+
 export const addProductCount = async (id: CartId, value: number) => {
   const { id: cartId, number } = addProductCountParams.parse({ id, number: value });
   try {

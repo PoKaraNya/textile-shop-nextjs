@@ -23,7 +23,6 @@ export const ConfirmOrderButton = () => {
   const clickHandler = () => {
     startMutation(async () => {
       await createUserOrderAction(notes);
-      // await CleanCartAction();
     });
   };
   return (

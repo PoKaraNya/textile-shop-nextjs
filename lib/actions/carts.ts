@@ -25,7 +25,7 @@ const handleErrors = (e: unknown) => {
   return errMsg;
 };
 
-const revalidateCarts = () => revalidatePath('/carts');
+const revalidateCarts = () => revalidatePath('/cart');
 
 export const createCartAction = async (input: NewCartParams) => {
   try {

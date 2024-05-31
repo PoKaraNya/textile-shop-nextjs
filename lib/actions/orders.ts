@@ -14,7 +14,7 @@ import {
 } from '@/lib/db/schema/orders';
 import * as Sentry from '@sentry/nextjs';
 import { ProductId } from '@/lib/db/schema/products';
-import { deleteCartByProductId } from '@/lib/api/carts/mutations';
+import { clearCartByUserId, deleteCartByProductId } from '@/lib/api/carts/mutations';
 
 const handleErrors = (e: unknown) => {
   Sentry.captureException(e);
@@ -43,6 +43,7 @@ export const createUserOrderAction = async (notes: string) => {
   try {
     await createUserOrder(notes);
     revalidateOrders();
+    await clearCartByUserId();
   } catch (e) {
     return handleErrors(e);
   }
