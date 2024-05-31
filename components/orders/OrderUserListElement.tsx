@@ -10,6 +10,7 @@ interface Props {
     number: number;
     price: number;
     notes?: string | null;
+    createdAt: Date;
     orderProducts: {
       product: {
         id: string;
@@ -25,7 +26,7 @@ interface Props {
 
 export function OrderUserListElement({ value }: Props) {
   const {
-    number, price, notes, orderProducts,
+    number, price, notes, createdAt, orderProducts,
   } = value;
   const [isOpen, setIsOpen] = useState(false);
 
@@ -34,13 +35,12 @@ export function OrderUserListElement({ value }: Props) {
   };
 
   return (
-    <div className="bg-bg-dark border mt-10 p-4 rounded-lg mb-4">
+    <div className="bg-bg-dark border mt-10 p-4 rounded-lg mb-4 relative">
       <div className="flex justify-between items-center">
         <h3 className="font-semibold">
           Order #
           {number}
         </h3>
-        {/* eslint-disable-next-line react/button-has-type */}
         <button onClick={toggleOpen} className="ml-4">
           {isOpen ? (
             <ChevronUpIcon className="h-5 w-5 ml-1" />
@@ -89,6 +89,9 @@ export function OrderUserListElement({ value }: Props) {
           ))}
         </div>
       )}
+      <div className="absolute bottom-2 right-2">
+        <time>{new Date(createdAt).toLocaleDateString()}</time>
+      </div>
     </div>
   );
 }
