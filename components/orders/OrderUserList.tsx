@@ -9,6 +9,7 @@ interface Props {
     number: number;
     price: number;
     notes?: string | null;
+    createdAt: Date;
     orderProducts: {
       product: {
         id: string;

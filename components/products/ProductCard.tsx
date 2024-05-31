@@ -10,7 +10,6 @@ import { createCartAction } from '@/lib/actions/carts';
 import { createFavoriteAction, removeFromFavoriteAction } from '@/lib/actions/favorites';
 import { deleteProductFromCartAction } from '@/lib/actions/orders';
 import classNames from 'classnames';
-import { getUserAuth } from '@/lib/auth/utils';
 
 interface Props {
   product: Product

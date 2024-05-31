@@ -30,7 +30,7 @@ export const createUserOrder = async (notes: string) => {
     const { session } = await getUserAuth();
     const { carts } = await getCarts();
     const totalPrice = carts.reduce((total, cartItem) => total + cartItem.product.price * cartItem.count, 0);
-    const order = await db.order.create({
+    await db.order.create({
       data: {
         price: totalPrice,
         userId: session?.user?.id!,

@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/button';
 import { useState, useTransition } from 'react';
-import { createUserOrderAction, deleteProductFromCartAction } from '@/lib/actions/orders';
+import { createUserOrderAction } from '@/lib/actions/orders';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import {
@@ -17,7 +17,7 @@ import {
 } from '@/components/ui/sheet';
 
 export const ConfirmOrderButton = () => {
-  const [pending, startMutation] = useTransition();
+  const [, startMutation] = useTransition();
   const [notes, setNotes] = useState('');
 
   const clickHandler = () => {
@@ -34,7 +34,7 @@ export const ConfirmOrderButton = () => {
         <SheetHeader>
           <SheetTitle>Confirm order</SheetTitle>
           <SheetDescription>
-            Confirm your order and add a comment to the order if desired. Click confirm when you're done.
+            Confirm your order and add a comment to the order if desired. Click confirm when you&#39;re done.
           </SheetDescription>
         </SheetHeader>
         <div className="grid gap-4 py-4">

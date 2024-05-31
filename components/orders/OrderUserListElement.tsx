@@ -41,7 +41,7 @@ export function OrderUserListElement({ value }: Props) {
           Order #
           {number}
         </h3>
-        <button onClick={toggleOpen} className="ml-4">
+        <button type="button" onClick={toggleOpen} className="ml-4">
           {isOpen ? (
             <ChevronUpIcon className="h-5 w-5 ml-1" />
           ) : (
