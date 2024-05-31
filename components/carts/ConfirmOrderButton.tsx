@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/button';
 import { useState, useTransition } from 'react';
-import { createUserOrderAction } from '@/lib/actions/orders';
+import { createUserOrderAction, deleteProductFromCartAction } from '@/lib/actions/orders';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import {
@@ -23,6 +23,7 @@ export const ConfirmOrderButton = () => {
   const clickHandler = () => {
     startMutation(async () => {
       await createUserOrderAction(notes);
+      // await CleanCartAction();
     });
   };
   return (
