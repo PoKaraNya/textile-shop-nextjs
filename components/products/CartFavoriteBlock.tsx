@@ -7,6 +7,10 @@ import { createCartAction } from '@/lib/actions/carts';
 import { ProductId } from '@/lib/db/schema/products';
 import { createFavoriteAction, removeFromFavoriteAction } from '@/lib/actions/favorites';
 import { deleteProductFromCartAction } from '@/lib/actions/orders';
+import classNames from 'classnames';
+import {
+  IoCart, IoCartOutline, IoHeartOutline, IoHeartSharp,
+} from 'react-icons/io5';
 
 interface Props {
   inCart: boolean;
@@ -39,18 +43,26 @@ export function CartFavoriteBlock({ productId, inCart, inFavorite }: Props) {
   return (
     <div className="grid grid-cols-2 gap-2">
       <Button
+        className={classNames(
+          'bg-app',
+          inCart ? 'bg-app-secondary' : 'bg-app',
+        )}
         variant="outline"
         size="lg"
         onClick={inCart ? removeFromCartHandler : addToCartHandler}
       >
-        <ShoppingCartIcon fill={inCart ? 'black' : 'white'} />
+        {inCart ? <IoCart size="23px" color="white" /> : <IoCartOutline size="23px" color="white" />}
       </Button>
       <Button
+        className={classNames(
+          'bg-app',
+          inFavorite ? 'bg-app-secondary' : 'bg-app',
+        )}
         variant="outline"
         size="lg"
         onClick={inFavorite ? removeFromFavoriteHandler : addToFavoriteHandler}
       >
-        <HeartIcon fill={inFavorite ? 'black' : 'white'} />
+        {inFavorite ? <IoHeartSharp size="23px" color="white" /> : <IoHeartOutline size="23px" color="white" />}
       </Button>
     </div>
   );

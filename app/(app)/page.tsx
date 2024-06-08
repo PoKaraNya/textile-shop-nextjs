@@ -1,6 +1,15 @@
 import Link from 'next/link';
+import { getCategories } from '@/lib/api/categories/queries';
+import { CategoryHomeGrid } from '@/components/categories/CategoryHomeGrid';
+import { Category } from '@/lib/db/schema/categories';
+import { CategoryHomeList } from '@/components/categories/CategoryHomeList';
+import { getProducts } from '@/lib/api/products/queries';
+import { ProductHomeGrid } from '@/components/products/ProductHomeGrid';
 
-export default function LandingPage() {
+export default async function LandingPage() {
+  const { categories } = await getCategories();
+  const { products } = await getProducts();
+
   return (
     <div className="flex flex-col min-h-screen">
       <main className="flex-1">
@@ -97,59 +106,8 @@ export default function LandingPage() {
         </section>
 
         <section className="w-full py-12">
-          <div className="container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-4 md:px-6">
-            <div
-              className="rounded-lg shadow-lg hover:shadow-xl transition-transform duration-300 ease-in-out hover:-translate-y-2"
-            >
-              <img
-                alt="Product"
-                className="aspect-square cover rounded-t-lg"
-                src="/pictures/c1.jpg"
-              />
-              <div className="p-4 bg-white dark:bg-gray-950">
-                <h3 className="text-lg font-bold">Linen Throw Pillow</h3>
-                <p className="text-gray-500 dark:text-gray-400">$29.99</p>
-              </div>
-            </div>
-            <div
-              className="rounded-lg shadow-lg hover:shadow-xl transition-transform duration-300 ease-in-out hover:-translate-y-2"
-            >
-              <img
-                alt="Product"
-                className="aspect-square cover rounded-t-lg"
-                src="/pictures/c2.jpg"
-              />
-              <div className="p-4 bg-white cover dark:bg-gray-950">
-                <h3 className="text-lg font-bold">Cotton Bath Towel</h3>
-                <p className="text-gray-500 dark:text-gray-400">$19.99</p>
-              </div>
-            </div>
-            <div
-              className="rounded-lg shadow-lg hover:shadow-xl transition-transform duration-300 ease-in-out hover:-translate-y-2"
-            >
-              <img
-                alt="Product"
-                className="aspect-square cover rounded-t-lg"
-                src="/pictures/с3.jpg"
-              />
-              <div className="p-4 bg-white dark:bg-gray-950">
-                <h3 className="text-lg font-bold">Silk Scarf</h3>
-                <p className="text-gray-500 dark:text-gray-400">$39.99</p>
-              </div>
-            </div>
-            <div
-              className="rounded-lg shadow-lg hover:shadow-xl transition-transform duration-300 ease-in-out hover:-translate-y-2"
-            >
-              <img
-                alt="Product"
-                className="aspect-square object-cover rounded-t-lg"
-                src="/pictures/с4.jpg"
-              />
-              <div className="p-4 bg-white dark:bg-gray-950">
-                <h3 className="text-lg font-bold">Wool Blanket</h3>
-                <p className="text-gray-500 dark:text-gray-400">$59.99</p>
-              </div>
-            </div>
+          <div className="container grid  lg:grid-cols-4 gap-6 px-4 md:px-6">
+            <ProductHomeGrid products={products.slice(0, 4)} />
           </div>
         </section>
 
@@ -178,83 +136,13 @@ export default function LandingPage() {
 
         <div className="w-full dark:bg-gray-800">
           <div className="container grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-12 px-4 md:px-6">
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-              <div
-                className="rounded-lg shadow-lg hover:shadow-xl transition-transform duration-300 ease-in-out hover:-translate-y-2"
-              >
-                <img
-                  alt="Product"
-                  className="aspect-square cover rounded-t-lg"
-                  src="/pictures/c5.jpg"
-                />
-                <div className="p-4 bg-white dark:bg-gray-950">
-                  <h3 className="text-lg font-bold">Plates</h3>
-                </div>
-              </div>
-              <div
-                className="rounded-lg shadow-lg hover:shadow-xl transition-transform duration-300 ease-in-out hover:-translate-y-2"
-              >
-                <img
-                  alt="Product"
-                  className="aspect-square cover rounded-t-lg"
-                  src="/pictures/c6.jpg"
-                />
-                <div className="p-4 bg-white dark:bg-gray-950">
-                  <h3 className="text-lg font-bold">Linens</h3>
-                </div>
-              </div>
-              <div
-                className="rounded-lg shadow-lg hover:shadow-xl transition-transform duration-300 ease-in-out hover:-translate-y-2"
-              >
-                <img
-                  alt="Product"
-                  className="aspect-square cover rounded-t-lg"
-                  src="/pictures/c7.jpg"
-                />
-                <div className="p-4 bg-white dark:bg-gray-950">
-                  <h3 className="text-lg font-bold">Kitchen towels</h3>
-                </div>
-              </div>
-
-            </div>
+            <CategoryHomeGrid categories={categories.slice(0, 3)} />
             <div className="bg-bg-dark rounded-lg shadow-lg p-6 dark:bg-gray-950">
               <h3 className="text-lg font-bold mb-4">Shop by Category</h3>
               <nav className="space-y-2">
-                <Link
-                  className="flex items-center justify-between text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
-                  href="#"
-                >
-                  <span>Bedding</span>
-
-                </Link>
-                <Link
-                  className="flex items-center justify-between text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
-                  href="#"
-                >
-                  <span>Bath</span>
-
-                </Link>
-                <Link
-                  className="flex items-center justify-between text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
-                  href="#"
-                >
-                  <span>Kitchen</span>
-
-                </Link>
-                <Link
-                  className="flex items-center justify-between text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
-                  href="#"
-                >
-                  <span>Decor</span>
-
-                </Link>
-                <Link
-                  className="flex items-center justify-between text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
-                  href="#"
-                >
-                  <span>Apparel</span>
-
-                </Link>
+                {categories.map((product: Category) => (
+                  <CategoryHomeList category={product} key={product.id} />
+                ))}
               </nav>
             </div>
           </div>

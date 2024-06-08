@@ -18,45 +18,45 @@ interface Props {
     id: string
   }
 }
+//
+// const sizes = [
+//   {
+//     name: 'xs',
+//     title: 'XS',
+//   }, {
+//     name: 's',
+//     title: 'S',
+//   },
+//   {
+//     name: 'm',
+//     title: 'M',
+//   },
+//   {
+//     name: 'l',
+//     title: 'L',
+//   },
+//   {
+//     name: 'xl',
+//     title: 'XL',
+//   },
+// ];
+//
+// const colors = [
+//   {
+//     name: 'black',
+//     title: 'Black',
+//   },
+//   {
+//     name: 'white',
+//     title: 'White',
+//   },
+//   {
+//     name: 'blue',
+//     title: 'Blue',
+//   },
+// ];
 
-const sizes = [
-  {
-    name: 'xs',
-    title: 'XS',
-  }, {
-    name: 's',
-    title: 'S',
-  },
-  {
-    name: 'm',
-    title: 'M',
-  },
-  {
-    name: 'l',
-    title: 'L',
-  },
-  {
-    name: 'xl',
-    title: 'XL',
-  },
-];
-
-const colors = [
-  {
-    name: 'black',
-    title: 'Black',
-  },
-  {
-    name: 'white',
-    title: 'White',
-  },
-  {
-    name: 'blue',
-    title: 'Blue',
-  },
-];
-
-const QUANTITY_LIST = range(1, 5);
+const QUANTITY_LIST = range(1, 11);
 
 export default async function ProductIdPage({ params }: Props) {
   const { product } = await getProductById(params.id);
@@ -82,15 +82,15 @@ export default async function ProductIdPage({ params }: Props) {
             Acme Prism T-Shirt: The Modern Blend of Style and Comfort
           </h1>
           <div className="flex md items-start">
-            <Rating value={rating} />
+            {/* <Rating value={rating} /> */}
             <div className="text-4xl font-bold ml-auto">
               {product?.price}
               {' грн'}
             </div>
           </div>
           <form className="bg grid gap-4 md:gap-10">
-            <RadioButtons label="Color" value={colors} />
-            <RadioButtons label="Size" value={sizes} />
+            {/* <RadioButtons label="Color" value={colors} /> */}
+            {/* <RadioButtons label="Size" value={sizes} /> */}
             <div className="grid gap-2">
               <Label className="text-base" htmlFor="quantity">
                 Quantity
@@ -140,11 +140,12 @@ export default async function ProductIdPage({ params }: Props) {
               {images.map((image) => (
                 <button
                   type="button"
-                  className="border hover:border-gray-900 rounded-lg overflow-hidden transition-colors dark:hover:border-gray-50"
+                  // className="border hover:border-gray-900 rounded-lg overflow-hidden transition-colors dark:hover:border-gray-50"
+
                 >
                   <img
                     alt="Preview thumbnail"
-                    className="aspect-square object-cover"
+                    className="aspect-square object-cover bg-red"
                     height={100}
                     src={image!}
                     width={100}
