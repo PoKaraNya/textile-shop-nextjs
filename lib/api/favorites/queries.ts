@@ -3,9 +3,11 @@ import { getUserAuth } from '@/lib/auth/utils';
 import { type FavoriteId, favoriteIdSchema } from '@/lib/db/schema/favorites';
 import { ProductId, productIdSchema } from '@/lib/db/schema/products';
 import { map } from 'lodash';
+import { redirect } from 'next/navigation';
 
 export const getFavorites = async () => {
   const { session } = await getUserAuth();
+  if (!session) redirect('/api/auth/signin');
   const f = await db.favorite.findMany({ where: { userId: session?.user.id! }, include: { product: true } });
   return { favorites: f };
 };

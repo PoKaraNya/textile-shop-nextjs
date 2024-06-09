@@ -1,7 +1,6 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { HeartIcon, ShoppingCartIcon } from 'lucide-react';
 import { useTransition } from 'react';
 import { createCartAction } from '@/lib/actions/carts';
 import { ProductId } from '@/lib/db/schema/products';
@@ -11,6 +10,7 @@ import classNames from 'classnames';
 import {
   IoCart, IoCartOutline, IoHeartOutline, IoHeartSharp,
 } from 'react-icons/io5';
+import { toast } from 'sonner';
 
 interface Props {
   inCart: boolean;
@@ -40,6 +40,28 @@ export function CartFavoriteBlock({ productId, inCart, inFavorite }: Props) {
       await removeFromFavoriteAction(productId);
     });
   };
+
+  const handleCartClick = () => {
+    startTransition(async () => {
+      if (inCart) {
+        await removeFromCartHandler();
+      } else {
+        await addToCartHandler();
+      }
+      toast('Success');
+    });
+  };
+
+  const handleFavoriteClick = () => {
+    startTransition(async () => {
+      if (inFavorite) {
+        await removeFromFavoriteHandler();
+      } else {
+        await addToFavoriteHandler();
+      }
+      toast('Success');
+    });
+  };
   return (
     <div className="grid grid-cols-2 gap-2">
       <Button
@@ -49,7 +71,7 @@ export function CartFavoriteBlock({ productId, inCart, inFavorite }: Props) {
         )}
         variant="outline"
         size="lg"
-        onClick={inCart ? removeFromCartHandler : addToCartHandler}
+        onClick={handleCartClick}
       >
         {inCart ? <IoCart size="23px" color="white" /> : <IoCartOutline size="23px" color="white" />}
       </Button>
@@ -60,7 +82,7 @@ export function CartFavoriteBlock({ productId, inCart, inFavorite }: Props) {
         )}
         variant="outline"
         size="lg"
-        onClick={inFavorite ? removeFromFavoriteHandler : addToFavoriteHandler}
+        onClick={handleFavoriteClick}
       >
         {inFavorite ? <IoHeartSharp size="23px" color="white" /> : <IoHeartOutline size="23px" color="white" />}
       </Button>

@@ -36,7 +36,7 @@ export default async function LandingPage() {
                 <div className="flex flex-col gap-2 min-[400px]:flex-row">
                   <Link
                     className="inline-flex h-10 items-center justify-center rounded-md bg-neutral-900 px-8 text-sm font-medium text-neutral-50 shadow transition-colors hover:bg-neutral-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-neutral-50 dark:text-neutral-900 dark:hover:bg-neutral-50/90 dark:focus-visible:ring-neutral-300"
-                    href="#"
+                    href="/products"
                   >
                     Get Started
                   </Link>
@@ -94,14 +94,7 @@ export default async function LandingPage() {
                 </ul>
               </div>
             </div>
-            <div className="flex flex-col items-center justify-center space-y-4 text-center">
-              <div className="space-y-2">
-                <p className="max-w-[900px] text-neutral-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-neutral-400">
-                  We have a variety of designs and colors for every taste and preference of customers.
-                  The textile products we sell are made of high-quality materials that ensure durability and preserve the brightness of colors after washing.
-                </p>
-              </div>
-            </div>
+
           </div>
         </section>
 
@@ -111,28 +104,15 @@ export default async function LandingPage() {
           </div>
         </section>
 
-        <section className="w-full py-12 border-t pb-20">
-          <div className="container px-4 ">
-            <div className="flex flex-col items-center justify-center space-y-4 text-center">
-              <div className="space-y-2">
-                <h2 className="text-3xl font-bold tracking-tighter md:text-4xl">
-                  Sign Up for Updates
-                </h2>
-                <p className="max-w-[600px] text-neutral-500 md:text-xl dark:text-neutral-400">
-                  Stay updated with the latest product news and updates.
-                </p>
-              </div>
-              <div className="w-full max-w-sm space-y-2">
-                <button
-                  type="submit"
-                  className="inline-flex h-10 items-center justify-center rounded-md bg-app-secondary px-4 text-sm font-medium text-neutral-50 shadow transition-colors hover:bg-neutral-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-neutral-50 dark:text-neutral-900 dark:hover:bg-neutral-50/90 dark:focus-visible:ring-neutral-300"
-                >
-                  Sign Up
-                </button>
-              </div>
-            </div>
+        <div className="flex flex-col items-center justify-center space-y-4 text-center p-10">
+          <div className="space-y-2">
+            <p className="max-w-[900px] text-neutral-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-neutral-400">
+              We have a variety of designs and colors for every taste and preference of customers.
+              The textile products we sell are made of high-quality materials that ensure durability and preserve the
+              brightness of colors after washing.
+            </p>
           </div>
-        </section>
+        </div>
 
         <div className="w-full dark:bg-gray-800">
           <div className="container grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-12 px-4 md:px-6">

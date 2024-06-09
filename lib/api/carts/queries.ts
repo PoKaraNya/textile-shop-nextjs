@@ -3,9 +3,11 @@ import { getUserAuth } from '@/lib/auth/utils';
 import { type CartId, cartIdSchema } from '@/lib/db/schema/carts';
 import { ProductId, productIdSchema } from '@/lib/db/schema/products';
 import { map } from 'lodash';
+import { redirect } from 'next/navigation';
 
 export const getCarts = async () => {
   const { session } = await getUserAuth();
+  if (!session) redirect('/api/auth/signin');
   const c = await db.cart.findMany({
     where: {
       userId: session?.user.id!,

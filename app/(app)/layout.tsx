@@ -1,7 +1,6 @@
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import {
-  MenuIcon, SearchIcon, ShirtIcon, ShoppingCartIcon,
+  MenuIcon, ShirtIcon, ShoppingCartIcon,
 } from 'lucide-react';
 import Link from 'next/link';
 import { PropsWithChildren } from 'react';
@@ -12,6 +11,7 @@ import { getCartsCount } from '@/lib/api/carts/queries';
 import logo from '@/public/svg/logo.svg';
 import Image from 'next/image';
 import { UserRole } from '@/lib/types';
+import { SearchInput } from '@/components/search/SearchInput';
 
 interface Props extends PropsWithChildren {}
 
@@ -55,14 +55,7 @@ export default async function AppLayout({ children }: Props) {
             ))}
           </nav>
         </div>
-        <div className="relative flex w-full max-w-md items-center lg:max-w-none">
-          <SearchIcon className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-app-secondary" />
-          <Input
-            className="h-10 w-full rounded-md border border-t-bg-light bg-bg-light pl-10 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary dark:border-gray-700 dark:bg-gray-800 dark:text-gray-50"
-            placeholder="Search products..."
-            type="search"
-          />
-        </div>
+        <SearchInput />
         <div className="flex items-center gap-4">
           {session?.user?.role === UserRole.ADMIN ? (
             <Link href="/admin/dashboard">

@@ -10,14 +10,16 @@ import { createCartAction } from '@/lib/actions/carts';
 import { createFavoriteAction, removeFromFavoriteAction } from '@/lib/actions/favorites';
 import { deleteProductFromCartAction } from '@/lib/actions/orders';
 import classNames from 'classnames';
+import { toast } from 'sonner';
 
 interface Props {
   product: Product
   inCart: boolean;
   inFavorite: boolean;
 }
-export function ProductCard({ product, inCart, inFavorite }: Props) {
+export async function ProductCard({ product, inCart, inFavorite }: Props) {
   const [, startTransition] = useTransition();
+
   const addToCartHandle = () => {
     startTransition(async () => {
       await createCartAction({ productId: product.id, count: 1 });
@@ -36,6 +38,28 @@ export function ProductCard({ product, inCart, inFavorite }: Props) {
   const removeFromFavoriteHandler = async () => {
     startTransition(async () => {
       await removeFromFavoriteAction(product.id);
+    });
+  };
+
+  const handleCartClick = () => {
+    startTransition(async () => {
+      if (inCart) {
+        await removeFromCartHandler();
+      } else {
+        addToCartHandle();
+      }
+      toast('Success');
+    });
+  };
+
+  const handleFavoriteClick = () => {
+    startTransition(async () => {
+      if (inFavorite) {
+        await removeFromFavoriteHandler();
+      } else {
+        addToFavoriteHandle();
+      }
+      toast('Success');
     });
   };
 
@@ -59,7 +83,7 @@ export function ProductCard({ product, inCart, inFavorite }: Props) {
             'bg-app size-8 rounded-md flex justify-center items-center',
             inCart ? 'bg-app-secondary' : 'bg-app',
           )}
-          onClick={inCart ? removeFromCartHandler : addToCartHandle}
+          onClick={handleCartClick}
         >
           {inCart ? <IoCart /> : <IoCartOutline />}
         </button>
@@ -69,7 +93,7 @@ export function ProductCard({ product, inCart, inFavorite }: Props) {
             'bg-app size-8 rounded-md flex justify-center items-center duration-500',
             inFavorite ? 'bg-app-secondary' : 'bg-app',
           )}
-          onClick={inFavorite ? removeFromFavoriteHandler : addToFavoriteHandle}
+          onClick={handleFavoriteClick}
         >
           {inFavorite ? <IoHeartSharp /> : <IoHeartOutline />}
         </button>

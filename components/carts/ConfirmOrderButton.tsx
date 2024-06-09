@@ -15,6 +15,8 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
+import { toast } from 'sonner';
+import { redirect } from 'next/navigation';
 
 export const ConfirmOrderButton = () => {
   const [, startMutation] = useTransition();
@@ -23,6 +25,8 @@ export const ConfirmOrderButton = () => {
   const clickHandler = () => {
     startMutation(async () => {
       await createUserOrderAction(notes);
+      toast('Success');
+      redirect('/orders');
     });
   };
   return (

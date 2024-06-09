@@ -11,7 +11,7 @@ export function ProductHomeCard({ product }: Props) {
         <img
           alt="Product"
           className="aspect-square cover rounded-t-lg"
-          src={product.photo || '/pictures/c2.jpg'}
+          src={product.photo || '/placeholder.svg'}
         />
         <div className="p-4 bg-white cover dark:bg-gray-950">
           <h3 className="text-lg font-bold">{product.title}</h3>

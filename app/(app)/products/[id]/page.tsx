@@ -1,14 +1,7 @@
 import { getProductById } from '@/lib/api/products/queries';
 import { Suspense } from 'react';
 import Loading from '@/app/(app)/loading';
-import { Label } from '@/components/ui/label';
-import {
-  Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
-} from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
-import { range } from 'lodash';
-import { Rating } from '@/components/shared/Rating';
-import { RadioButtons } from '@/components/shared/RadioButtons';
 import { CartFavoriteBlock } from '@/components/products/CartFavoriteBlock';
 import { isProductInCart } from '@/lib/api/carts/queries';
 import { isProductInFavorite } from '@/lib/api/favorites/queries';
@@ -18,45 +11,6 @@ interface Props {
     id: string
   }
 }
-//
-// const sizes = [
-//   {
-//     name: 'xs',
-//     title: 'XS',
-//   }, {
-//     name: 's',
-//     title: 'S',
-//   },
-//   {
-//     name: 'm',
-//     title: 'M',
-//   },
-//   {
-//     name: 'l',
-//     title: 'L',
-//   },
-//   {
-//     name: 'xl',
-//     title: 'XL',
-//   },
-// ];
-//
-// const colors = [
-//   {
-//     name: 'black',
-//     title: 'Black',
-//   },
-//   {
-//     name: 'white',
-//     title: 'White',
-//   },
-//   {
-//     name: 'blue',
-//     title: 'Blue',
-//   },
-// ];
-
-const QUANTITY_LIST = range(1, 11);
 
 export default async function ProductIdPage({ params }: Props) {
   const { product } = await getProductById(params.id);
@@ -89,21 +43,6 @@ export default async function ProductIdPage({ params }: Props) {
             </div>
           </div>
           <form className="bg grid gap-4 md:gap-10">
-            {/* <RadioButtons label="Color" value={colors} /> */}
-            {/* <RadioButtons label="Size" value={sizes} /> */}
-            <div className="grid gap-2">
-              <Label className="text-base" htmlFor="quantity">
-                Quantity
-              </Label>
-              <Select defaultValue="1">
-                <SelectTrigger className="w-24">
-                  <SelectValue placeholder="Select" />
-                </SelectTrigger>
-                <SelectContent>
-                  {QUANTITY_LIST.map((el) => <SelectItem value={el.toString()}>{el}</SelectItem>)}
-                </SelectContent>
-              </Select>
-            </div>
             <CartFavoriteBlock productId={product?.id!} inCart={inCart} inFavorite={inFavorite} />
           </form>
           <Separator className="border-gray-200 dark:border-gray-800" />

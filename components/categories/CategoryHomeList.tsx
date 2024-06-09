@@ -1,6 +1,4 @@
 import { Category } from '@/lib/db/schema/categories';
-import { CategoryCard } from '@/components/categories';
-import { CategoryHomeCard } from '@/components/categories/CategoryHomeCard';
 import Link from 'next/link';
 
 interface Props {
