@@ -23,8 +23,6 @@ export default async function ProductIdPage({ params }: Props) {
     product?.photo,
   ];
 
-  const rating = 3;
-
   const inCart = await isProductInCart(product?.id!);
   const inFavorite = await isProductInFavorite(product?.id!);
 
